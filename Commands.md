@@ -4,6 +4,7 @@
 
 **Type = prefix only or slash only or both (p & s)**
 
+Fun
 | Commands | description | Type | Default Permission |
 |:---:|:---:|:---:|:---:|
 | help | Bring up help menu | p & s | 0 |
@@ -17,8 +18,20 @@
 | hug [user] | Someone being cute? hug them! | p & s | 0 |
 | kiss [user] | Have feeling with someone? kiss them! | p & s | 0 |
 | stealnitro [user] | Being poor? just steal other people nitro! | p & s | 0 |
+
+Misc
+| Commands | description | Type | Default Permission |
+|:---:|:---:|:---:|:---:|
 | get_profile [user][type] | Get profile of mentioned member | Slash only | 0 |
 | avatar [user] | View mentioned member's avatar | prefix only | 0 |
 | banner [user] | View mentioned member's banner | prefix only | 0 |
+
+Bot related
+| Commands | description | Type | Default Permission |
+|:---:|:---:|:---:|:---:|
 | ping | Check bot's ping | p & s | 0 |
+
+Moderation
+| Commands | description | Type | Default Permission |
+|:---:|:---:|:---:|:---:|
 | purge [amount] | Delete message in the channel by amount | p & s | Manage_message |
