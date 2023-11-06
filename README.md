@@ -1,5 +1,5 @@
 # Sally
-**A utility bot that focus on fun module** 
+**A utility bot that focus on Fun command** 
 
 Writen in [Nextcord](https://nextcord.dev/) [Python](https://www.python.org/)
 
