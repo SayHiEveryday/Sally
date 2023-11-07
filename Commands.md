@@ -25,7 +25,8 @@
 | get_profile [user][type] | Get profile of mentioned member | Slash only | 0 |
 | avatar [user] | View mentioned member's avatar | prefix only | 0 |
 | banner [user] | View mentioned member's banner | prefix only | 0 |
-| whois [user] | Show basic info of mentioned user | prefix only | 0 |
+| whois [user] | Show basic info of mentioned user | p & s | 0 |
+| guildinfo [user] | Get info of current guild | p & s | 0 |
 
 ## Bot related
 | Commands | description | Type | Default Permission |
