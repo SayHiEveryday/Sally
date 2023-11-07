@@ -32,6 +32,7 @@
 | Commands | description | Type | Default Permission |
 |:---:|:---:|:---:|:---:|
 | ping | Check bot's ping | p & s | 0 |
+| change_prefix [new_prefix] | Change bot prefix | p & s | administrator |
 
 ## Moderation
 | Commands | description | Type | Default Permission |
