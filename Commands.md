@@ -27,6 +27,7 @@
 | banner [user] | View mentioned member's banner | prefix only | 0 |
 | whois [user] | Show basic info of mentioned user | p & s | 0 |
 | guildinfo  | Get info of current guild | p & s | 0 |
+| emojisteal  | Steal inputed emoji | prefix only | 0 |
 
 ## Bot related
 | Commands | description | Type | Default Permission |
