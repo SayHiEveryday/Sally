@@ -18,6 +18,8 @@
 | hug [user] | Someone being cute? hug them! | p & s | 0 |
 | kiss [user] | Have feeling with someone? kiss them! | p & s | 0 |
 | stealnitro [user] | Being poor? just steal other people nitro! | p & s | 0 |
+| history today | Show what happened today in history today date(UTC) | slash only | 0 |
+| history thatday [month][day] | Show what happened today in history You can input a month and day to get history of that day | slash only | 0 |
 
 ## Misc
 | Commands | description | Type | Default Permission |
