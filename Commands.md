@@ -16,6 +16,7 @@
 | fakemod [user][reason][action] | Fake Moderation | slash only | 0 |
 | gay [user] | Feeling like someone is gay? Test them! | p & s | 0 |
 | hug [user] | Someone being cute? hug them! | p & s | 0 |
+| pout [user] | Send pout gif | p & s | 0 |
 | kiss [user] | Have feeling with someone? kiss them! | p & s | 0 |
 | stealnitro [user] | Being poor? just steal other people nitro! | p & s | 0 |
 | history today | Show what happened today in history today date(UTC) | slash only | 0 |
