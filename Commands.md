@@ -44,3 +44,5 @@
 | purge [amount] | Delete message in the channel by amount | p & s | Manage_message |
 | kick [user][reason] | Kick mentioned member | p & s |  Kick_members |
 | Ban [user][reason] | Ban mentioned member | p & s | Ban_Members |
+| nick set [user][new_nick] | Set a nickname for mentioned member | p & s | Manage_Nicknames |
+| nick clear [user] | clear a nickname for mentioned member | p & s | Ban_Members |
