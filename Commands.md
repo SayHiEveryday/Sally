@@ -20,6 +20,7 @@
 | stealnitro [user] | Being poor? just steal other people nitro! | p & s | 0 |
 | history today | Show what happened today in history today date(UTC) | slash only | 0 |
 | history thatday [month][day] | Show what happened today in history You can input a month and day to get history of that day | slash only | 0 |
+| urban [word] | Search urban dictionary | slash only | 0 |
 
 ## Misc
 | Commands | description | Type | Default Permission |
