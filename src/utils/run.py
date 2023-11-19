@@ -6,8 +6,8 @@ from utils.arg import bot , token
 def start():
     for extenstion in initial_extension:
         bot.load_extension(extenstion)
-    if json.loads(api.getSystemInfo())['platform'] == "Linux":
-        os.system("clear")
-    else:
+    if json.loads(api.getSystemInfo())['platform'] == "Windows":
         os.system("cls")
+    else:
+        os.system("clear")
     bot.run(token)

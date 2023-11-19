@@ -10,3 +10,4 @@ def get_prefix(bot , message):
 bot = commands.Bot(help_command=None , intents=nextcord.Intents.all() , command_prefix=get_prefix)
 
 token = "";
+owner = "";

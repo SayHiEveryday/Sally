@@ -7,41 +7,41 @@ initial_extension = []
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs." + filename[:-3])
+            initial_extension.append("commands." + filename[:-3])
         except Exception as e:
             print(e)
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs\/\\fun"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs."+ "fun." + filename[:-3])
+            initial_extension.append("commands."+ "fun." + filename[:-3])
         except Exception as e:
             print(e)
 
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs\moderation"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs." + "moderation."+ filename[:-3])
+            initial_extension.append("commands." + "moderation."+ filename[:-3])
         except Exception as e:
             print(e)
 
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs\misc"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs." + "misc."+ filename[:-3])
+            initial_extension.append("commands." + "misc."+ filename[:-3])
         except Exception as e:
                 print(e)
 
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs\salonly"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs."+ "salonly." + filename[:-3])
+            initial_extension.append("commands."+ "salonly." + filename[:-3])
         except Exception as e:
             print(e)
 
 for filename in os.listdir(os.path.dirname(__file__) + "\..\..\cogs\/\\bot"):
     if filename.endswith('.py'):
         try:
-            initial_extension.append("cogs."+ "bot." + filename[:-3])
+            initial_extension.append("commands."+ "bot." + filename[:-3])
         except Exception as e:
             print(e)
 
