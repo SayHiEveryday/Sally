@@ -38,6 +38,13 @@ for filename in os.listdir(os.path.dirname(__file__) + "/../cogs/salonly"):
         except Exception as e:
             print(e)
 
+for filename in os.listdir(os.path.dirname(__file__) + "/../cogs/bot"):
+    if filename.endswith('.py'):
+        try:
+            initial_extension.append("cogs."+ "bot." + filename[:-3])
+        except Exception as e:
+            print(e)
+
 for filename in os.listdir(os.path.dirname(__file__) + "/../event"):
     if filename.endswith('.py'):
         try:
