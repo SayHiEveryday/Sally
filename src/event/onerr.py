@@ -14,15 +14,17 @@ class onerr(commands.Cog):
         errorg = error
         if len(str(error)) > 1500:
             firstpart, secondpart = error[:len(error)//2], error[len(error)//2:]
-        if not secondpart:
-            embed = nextcord.Embed(title="Command Error!" , description=f"```\n{error}\n```")
+        try:
+            secondpart
+        except NameError:
+            embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{error}\n```")
             a = await bot.fetch_user(owner)
-            a.send(embed=embed)
+            await a.send(embed=embed)
         else:
             embed = nextcord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
-            embed2 = nextcord.Embed(title="Second part" , description=f"```\n{secondpart}\n```")
+            embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{secondpart}\n```")
             a = await bot.fetch_user(owner)
-            a.send(embeds=[embed , embed2])
+            await a.send(embeds=[embed , embed2])
         
 
 def setup(bot):
