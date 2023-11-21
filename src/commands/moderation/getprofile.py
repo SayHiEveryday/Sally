@@ -9,7 +9,10 @@ class getprofile(commands.Cog):
     @nextcord.slash_command(name="get_profile" , description="Get someone's profile")
     async def profile_slash(self,interaction: nextcord.Interaction , member: nextcord.Member , ty = nextcord.SlashOption(name="type" , choices=["banner" , "profile_picture"])):
         if ty == "banner":
-            ty2 = member.banner.url
+            if not member.banner == None:
+                ty2 = member.banner.url
+            else:
+                await interaction.response.send_message("This person doesn't have banner")
         else:
             ty2 = member.display_avatar.url
 
