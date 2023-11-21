@@ -2,6 +2,8 @@ import nextcord
 from nextcord.ext import commands
 from utils.arg import bot
 
+#banner is broken
+
 class getprofile(commands.Cog):
     def __init__(self, client):
         self.client = client
