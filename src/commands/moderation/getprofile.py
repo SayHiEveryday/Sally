@@ -17,9 +17,12 @@ class getprofile(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @commands.command(name="banner")
-    async def banner_prefix(self,ctx, member: nextcord.Member):
-        embed = nextcord.Embed(title=f"**Banner of {member.name}**").set_image(member.banner.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
-        await ctx.send(embed=embed)
+    async def banner_prefix(self,ctx: commands.Context, member: nextcord.Member):
+        try:
+            embed = nextcord.Embed(title=f"**Banner of {member.name}**").set_image(member.banner.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
+            await ctx.send(embed=embed)
+        except NameError:
+            await ctx.reply("this person doesn't have banner")
 
     @commands.command(name="avatar")
     async def avatar_prefix(self,ctx, member: nextcord.Member):
@@ -31,6 +34,15 @@ class getprofile(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             embed = nextcord.Embed(title=f"**Avatar of {ctx.author.name}**").set_image(ctx.author.display_avatar.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=embed)
+
+    @banner_prefix.error
+    async def banner_error(self,ctx,error):
+        if isinstance(error, commands.MissingRequiredArgument):
+            try:
+                embed = nextcord.Embed(title=f"**Avatar of {ctx.author.name}**").set_image(ctx.author.display_avatar.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
+                await ctx.send(embed=embed)
+            except NameError:
+                return
 
 
 def setup(bot):

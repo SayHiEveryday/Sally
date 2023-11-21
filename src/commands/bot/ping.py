@@ -9,11 +9,11 @@ class pingcmd(commands.Cog):
 
     @nextcord.slash_command()
     async def pings(self,interaction: nextcord.Interaction):
-        await interaction.send(f"Pong! my ping is `{round(bot.latency)}` ms , websocket is `{round(bot.ws.latency)}` ms")
+        await interaction.send(f"Pong! my ping is `{round(bot.latency) * 1000}` ms , websocket is `{round(bot.ws.latency) * 1000}` ms")
 
     @commands.command()
     async def ping(self,interaction: nextcord.Interaction):
-        await interaction.send(f"Pong! my ping is `{round(bot.latency)}` ms , websocket is `{round(bot.ws.latency)}` ms")
+        await interaction.send(f"Pong! my ping is `{round(bot.latency) * 1000}` ms , websocket is `{round(bot.ws.latency) * 1000}` ms")
 
 
 def setup(bot):

@@ -1,6 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 import datetime
+from utils.handler.getprefix import get_prefix
 
 class ban(commands.Cog):
     def __init__(self,client):
@@ -48,6 +49,14 @@ class ban(commands.Cog):
     async def on_error(self,ctx , error):
         if isinstance(error , commands.MissingPermissions):
             await ctx.reply("Missing Permission: `ban_members`")
+            return
+        if isinstance(error , commands.MissingRequiredArgument):
+            embed = nextcord.Embed(
+                title="**Hey! missing required argument**",
+                description=f"how to use?\n {get_prefix}ban [member][reason]",
+                colour=nextcord.Color.random()
+                )
+            await ctx.reply(embed=embed)
 
 def setup(bot):
     bot.add_cog(ban(bot))

@@ -14,9 +14,13 @@ class viewrole(nextcord.ui.View):
     
     @nextcord.ui.button(label="View emoji", style=nextcord.ButtonStyle.blurple , custom_id="viewemo")
     async def viewemo(self,button:nextcord.Button , interaction: nextcord.Interaction):
-        guild = interaction.guild
-        embed = nextcord.Embed(description="".join([f"{emoji}" for emoji in interaction.guild.emojis]))
-        await interaction.response.send_message(embed=embed , ephemeral=True)
+        try:
+            guild = interaction.guild
+            embed = nextcord.Embed(description="".join([f"{emoji}" for emoji in interaction.guild.emojis]))
+            await interaction.response.send_message(embed=embed , ephemeral=True)
+        except Exception as e:
+            if "400" in str(e):
+                await interaction.response.send_message("No emoji in this guild" , ephemeral=True)
 
     
 class guildinfo(commands.Cog):
@@ -40,8 +44,9 @@ class guildinfo(commands.Cog):
         embed.add_field(name="Create at:" , value=f"<t:{rgat2}:F>" , inline=True)
         embed.add_field(name="Owner:" , value=f"{guild.owner.mention}" , inline=True)
         embed.set_footer(text=f"ID: {guild.id}")
-        embed.set_thumbnail(guild.icon.url)
         embed.set_author(name=f"Command ran by {interaction.user.name}" , icon_url=interaction.user.display_avatar.url)
+        if not guild.icon == None:
+            embed.set_thumbnail(guild.icon.url)
 
         await interaction.response.send_message(embed=embed , view=viewrole())
 
@@ -62,8 +67,9 @@ class guildinfo(commands.Cog):
         embed.add_field(name="Create at:" , value=f"<t:{rgat2}:F>" , inline=True)
         embed.add_field(name="Owner:" , value=f"{guild.owner.mention}" , inline=True)
         embed.set_footer(text=f"ID: {guild.id}")
-        embed.set_thumbnail(guild.icon.url)
         embed.set_author(name=f"Command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
+        if not guild.icon == None:
+            embed.set_thumbnail(guild.icon.url)
 
         await ctx.send(embed=embed , view=viewrole())
 

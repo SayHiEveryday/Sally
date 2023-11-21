@@ -10,21 +10,24 @@ class onerr(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self,ctx,error):
-        global errorg
-        errorg = error
-        if len(str(error)) > 1500:
-            firstpart, secondpart = error[:len(error)//2], error[len(error)//2:]
-        try:
-            secondpart
-        except NameError:
-            embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{error}\n```")
-            a = await bot.fetch_user(owner)
-            await a.send(embed=embed)
+        if isinstance(error,commands.MissingRequiredArgument):
+            await ctx.reply("hey! missing required argument (this is global error handling)")
         else:
-            embed = nextcord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
-            embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{secondpart}\n```")
-            a = await bot.fetch_user(owner)
-            await a.send(embeds=[embed , embed2])
+            global errorg
+            errorg = error
+            if len(str(error)) > 1500:
+                firstpart, secondpart = error[:len(error)//2], error[len(error)//2:]
+            try:
+                secondpart
+            except NameError:
+                embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{error}\n```")
+                a = await bot.fetch_user(owner)
+                await a.send(embed=embed)
+            else:
+                embed = nextcord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
+                embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{secondpart}\n```")
+                a = await bot.fetch_user(owner)
+                await a.send(embeds=[embed , embed2])
         
 
 def setup(bot):

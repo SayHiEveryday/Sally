@@ -10,14 +10,14 @@ class eightball(commands.Cog):
         
     @nextcord.slash_command(name="8ball" , description="Help decide a question")
     async def eightball_slash(self,interaction: nextcord.Interaction , question: str):
-        num = random.randint(1,12)
+        num = random.randint(0,len(answer))
 
 
         await interaction.response.send_message(f"Question: **{question}**\nAnswer: `{answer[num]}` , <@{interaction.user.id}>")
 
     @commands.command(name="8ball")
     async def eightball_prefix(self,ctx ,*, question: str):
-        num = random.randint(1,12)
+        num = random.randint(0,len(answer))
 
         await ctx.reply(f"Question: **{question}**\n Answer:`{answer[num]}` , <@{ctx.author.id}>")
 

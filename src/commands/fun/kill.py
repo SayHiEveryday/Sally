@@ -19,7 +19,7 @@ class kill(commands.Cog):
         
         await interaction.response.defer()
         await asyncio.sleep(2)
-        await interaction.followup.send(api.kill[random.randint(1,185)].replace("$mention" , f"<@{member.id}>").replace("$author" , f"<@{interaction.user.id}>"))
+        await interaction.followup.send(api.kill[random.randint(0,185)].replace("$mention" , f"<@{member.id}>").replace("$author" , f"<@{interaction.user.id}>"))
 
     @commands.command(name="kill")
     async def kill_prefix(self,ctx , member: nextcord.Member):
@@ -30,7 +30,7 @@ class kill(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> killed robot but robot come back and working perfectly fine")
             return
         
-        await ctx.send(api.kill[random.randint(1,185)].replace("$mention" , f"<@{member.id}>").replace("$author" , f"<@{ctx.author.id}>"))
+        await ctx.send(api.kill[random.randint(0,185)].replace("$mention" , f"<@{member.id}>").replace("$author" , f"<@{ctx.author.id}>"))
 
     @kill_prefix.error
     async def kill_error(self,ctx,error):
