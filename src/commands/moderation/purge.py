@@ -27,7 +27,7 @@ class purge(commands.Cog):
             await ctx.message.delete()
             channel = ctx.channel
             deleted = await channel.purge(limit=amount)
-            embed = nextcord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.nowre()).set_footer(text=f"Commands ran by {ctx.user.name}" , icon_url=ctx.user.avatar.url)
+            embed = nextcord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
             await ctx.send(embed=embed)
         else:
             await ctx.reply("Maximium purge is 100" , ephemeral=True)
