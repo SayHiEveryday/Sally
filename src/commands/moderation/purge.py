@@ -24,7 +24,7 @@ class purge(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def purge_prefix(self,ctx, amount: int):
         if amount < 101:
-            await ctx.essage.delete()
+            await ctx.message.delete()
             channel = ctx.channel
             deleted = await channel.purge(limit=amount)
             embed = nextcord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.nowre()).set_footer(text=f"Commands ran by {ctx.user.name}" , icon_url=ctx.user.avatar.url)
