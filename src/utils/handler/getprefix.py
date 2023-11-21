@@ -1,5 +1,4 @@
 import os , json
-from utils.arg import bot
 
 def get_prefix(bot , message):
 
