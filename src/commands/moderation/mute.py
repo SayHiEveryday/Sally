@@ -43,3 +43,6 @@ class mute(commands.Cog):
         except Exception as e:
             if "403" in str(e):
                 await ctx.reply("can't timeout this person")
+
+def setup(bot):
+    bot.add_cog(mute(bot))  
