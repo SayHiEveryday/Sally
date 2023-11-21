@@ -1,7 +1,7 @@
 import nextcord,json
 import nextcord.ext
 from nextcord.ext import commands
-from utils import api
+from utils.api.getsysinfo import getSystemInfo
 
 
 
@@ -13,7 +13,7 @@ class sysinfo(commands.Cog):
     async def sysinfo(self,ctx):
 
         if ctx.author.id == 698851209032761384:
-            a = json.loads(api.getSystemInfo())
+            a = json.loads(getSystemInfo())
             embed = nextcord.Embed(title="host sysinfo" , description=f"platform: {a['platform']} \nplatform version: {a['platform-version']}\narchitecture: {a['architecture']}\nhostname: {a['hostname']}\n ip: {a['ip-address']}\nmac-address: {a['mac-address']}\nprocessor {a['processor']}\nram: {a['ram']}")
             await ctx.reply(embed=embed)
         else:

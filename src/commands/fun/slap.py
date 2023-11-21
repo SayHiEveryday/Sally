@@ -1,6 +1,7 @@
 import nextcord
 from nextcord.ext import commands
-from utils import api
+from utils.api import ram
+
 
 class slap(commands.Cog):
     def __init__(self, client):
@@ -17,7 +18,7 @@ class slap(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = nextcord.Embed(title=f"**{interaction.user.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(api.rammore("slap"))
+        embed = nextcord.Embed(title=f"**{interaction.user.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(ram.rammore("slap"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="slap")
@@ -29,7 +30,7 @@ class slap(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> slap robot but robot doesn't have feeling.")
             return
 
-        embed = nextcord.Embed(title=f"**{ctx.author.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(api.rammore("slap"))
+        embed = nextcord.Embed(title=f"**{ctx.author.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(ram.rammore("slap"))
         await ctx.send(embed=embed)
 
     @slap_prefix.error

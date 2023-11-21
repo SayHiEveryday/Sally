@@ -2,7 +2,7 @@ import nextcord
 import nextcord.ext
 from nextcord.ext import commands
 import random
-from utils.api import answer
+from utils.arg import answer
 
 class eightball(commands.Cog):
     def __init__(self, client):

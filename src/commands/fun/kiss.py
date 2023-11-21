@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from utils import api
+from utils.api import ram
 
 class kiss(commands.Cog):
     def __init__(self, client):
@@ -17,7 +17,7 @@ class kiss(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = nextcord.Embed(title=f"**{interaction.user.name} kiss {member.name}!**").set_image(api.rammore("kiss"))
+        embed = nextcord.Embed(title=f"**{interaction.user.name} kiss {member.name}!**").set_image(ram.rammore("kiss"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="kiss")
@@ -29,7 +29,7 @@ class kiss(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> kiss robot but robot doesn't have feeling.")
             return
 
-        embed = nextcord.Embed(title=f"**{ctx.author.name} kiss {member.name}!**").set_image(api.rammore("kiss"))
+        embed = nextcord.Embed(title=f"**{ctx.author.name} kiss {member.name}!**").set_image(ram.rammore("kiss"))
         await ctx.send(embed=embed)
 
     @kiss_prefix.error

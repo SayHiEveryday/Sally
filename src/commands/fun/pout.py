@@ -1,5 +1,5 @@
 import nextcord 
-from utils import api
+from utils.api import ram
 from nextcord.ext import commands
 
 class pout(commands.Cog):
@@ -13,7 +13,7 @@ class pout(commands.Cog):
                 title=f"{interaction.user.name} pouts themself",
                 colour=nextcord.Color.random(),
             ).set_image(
-                api.rammore("pout")
+                ram.rammore("pout")
             ).set_footer(
                 text="command ran by {}".format(interaction.user.name),
                 icon_url=interaction.user.display_avatar.url
@@ -27,7 +27,7 @@ class pout(commands.Cog):
             text="command ran by {}".format(interaction.user.name),
             icon_url=interaction.user.display_avatar.url
         ).set_image(
-            api.rammore("pout")
+            ram.rammore("pout")
         )
         await interaction.response.send_message(embed=embed)
 
@@ -40,7 +40,7 @@ class pout(commands.Cog):
             text="command ran by {}".format(ctx.author.name),
             icon_url=ctx.author.display_avatar.url
         ).set_image(
-            api.rammore("pout")
+            ram.rammore("pout")
         )
         await ctx.send(embed=embed)
 
@@ -51,7 +51,7 @@ class pout(commands.Cog):
                 title=f"{ctx.authot.name} pouts themself",
                 colour=nextcord.Color.random(),
             ).set_image(
-                api.rammore("pout")
+                ram.rammore("pout")
             ).set_footer(
                 text="command ran by {}".format(ctx.author.name),
                 icon_url=ctx.author.display_avatar.url

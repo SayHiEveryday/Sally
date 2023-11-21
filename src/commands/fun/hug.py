@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from utils import api
+from utils.api.ram import rammore
 
 class hug(commands.Cog):
     def __init__(self, client):
@@ -17,7 +17,7 @@ class hug(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = nextcord.Embed(title=f"**{interaction.user.name} hug {member.name}!**").set_image(api.rammore("hug"))
+        embed = nextcord.Embed(title=f"**{interaction.user.name} hug {member.name}!**").set_image(rammore("hug"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="hug")
@@ -29,7 +29,7 @@ class hug(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> hug robot but robot doesn't have feeling.")
             return
 
-        embed = nextcord.Embed(title=f"**{ctx.author.name} hug {member.name}!**").set_image(api.rammore("hug"))
+        embed = nextcord.Embed(title=f"**{ctx.author.name} hug {member.name}!**").set_image(rammore("hug"))
         await ctx.send(embed=embed)
 
     @hug_prefix.error

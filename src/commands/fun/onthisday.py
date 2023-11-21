@@ -1,6 +1,6 @@
 import nextcord , datetime
 from nextcord.ext import commands
-from utils import api
+from utils.api.history import thatday,today
 
 class onthisday(commands.Cog):
     def __init__(self, client):
@@ -18,8 +18,8 @@ class onthisday(commands.Cog):
         await interaction.response.defer()
         a = datetime.datetime.utcnow()
         b = a.strftime('%m/%d')
-        link = api.today()['links']['0']['1']
-        embed = nextcord.Embed(title=f"Today is {b} (UTC)" , description=f"**Text:** {api.today()['text']}".replace("&#8211;" , "~"), colour=0x5865F2)
+        link = today()['links']['0']['1']
+        embed = nextcord.Embed(title=f"Today is {b} (UTC)" , description=f"**Text:** {today()['text']}".replace("&#8211;" , "~"), colour=0x5865F2)
         await interaction.followup.send(embed=embed)
 
     @history.subcommand(name="thatday" , description="You can input a month and day to get history of that day")
@@ -35,8 +35,8 @@ class onthisday(commands.Cog):
             if day >= 31:
                 await interaction.followup.send("short months(month that has 30 day) can only be up to 30 day" , ephemeral=True)
                 return
-        link = api.thatday(month=month,day=day)['links']['0']['1']
-        embed = nextcord.Embed(title=f"That day ({month} / {day})" , description=f"**Text:** {api.thatday(month=month,day=day)['text']}".replace("&#8211;" , "~"),colour=0x5865F2)
+        link = thatday(month=month,day=day)['links']['0']['1']
+        embed = nextcord.Embed(title=f"That day ({month} / {day})" , description=f"**Text:** {thatday(month=month,day=day)['text']}".replace("&#8211;" , "~"),colour=0x5865F2)
         await interaction.followup.send(embed=embed)
 
 def setup(bot):
