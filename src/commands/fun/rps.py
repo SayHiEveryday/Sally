@@ -45,4 +45,4 @@ class rps(commands.Cog):
         await interaction.response.send_message(embed=embed)
     
 def setup(bot):
-    bot.addcog(rps(bot))
+    bot.add_cog(rps(bot))
