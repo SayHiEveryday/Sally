@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-
+from utils.arg import bot
 
 class getprofile(commands.Cog):
     def __init__(self, client):
@@ -9,10 +9,8 @@ class getprofile(commands.Cog):
     @nextcord.slash_command(name="get_profile" , description="Get someone's profile")
     async def profile_slash(self,interaction: nextcord.Interaction , member: nextcord.Member , ty = nextcord.SlashOption(name="type" , choices=["banner" , "profile_picture"])):
         if ty == "banner":
-            if not member.banner == None:
-                ty2 = member.banner.url
-            else:
-                await interaction.response.send_message("This person doesn't have banner")
+            user = await bot.fetch_user(member.id)
+            ty2 = user.banner.url
         else:
             ty2 = member.display_avatar.url
 
@@ -22,7 +20,9 @@ class getprofile(commands.Cog):
     @commands.command(name="banner")
     async def banner_prefix(self,ctx: commands.Context, member: nextcord.Member):
         try:
-            embed = nextcord.Embed(title=f"**Banner of {member.name}**").set_image(member.banner.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
+            user = await bot.fetch_user(member.id)
+            
+            embed = nextcord.Embed(title=f"**Banner of {member.name}**").set_image(user.banner.url).set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.display_avatar.url)
             await ctx.send(embed=embed)
         except NameError:
             await ctx.reply("this person doesn't have banner")
