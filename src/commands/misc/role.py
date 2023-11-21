@@ -6,11 +6,8 @@ class role(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command("role" , default_member_permissions=268435456)
-    async def role_slash(interaction: nextcord.Interaction):
-        pass
 
-    @role_slash.subcommand(name="all" , description="add a role to all the member in the guild")
+    @nextcord.slash_command(name="role-all" , description="add a role to all the member in the guild" , default_member_permissions=268435456)
     async def role_slash_all(interaction: nextcord.Interaction , role: nextcord.Role):
         try:
             guild = interaction.guild
@@ -28,7 +25,7 @@ class role(commands.Cog):
         else:
             return
         
-    @role_slash.subcommand(name="other" , description="add a role to all the member in the guild")
+    @nextcord.slash_command(name="role-other" , description="add a role to all the member in the guild" , default_member_permissions=268435456)
     async def role_slash_other(interaction: nextcord.Interaction , role: nextcord.Role):
         try:
             guild = interaction.guild
@@ -48,7 +45,7 @@ class role(commands.Cog):
         else:
             return
 
-    @role_slash.subcommand(name="add" , description="add role to mentioned member")
+    @nextcord.slsah_command(name="role-add" , description="add role to mentioned member" , default_member_permissions=268435456)
     async def role_slash_add(interaction: nextcord.Interaction , member: nextcord.Member , role: nextcord.Role):
         try:
             if role in member:
@@ -62,7 +59,7 @@ class role(commands.Cog):
         else:
             return
         
-    @role_slash.subcommand(name="remove" , description="add role to mentioned member")
+    @nextcord.slash_command(name="role-remove" , description="remove role to mentioned member" , default_member_permissions=268435456)
     async def role_slash_remove(interaction: nextcord.Interaction , member: nextcord.Member , role: nextcord.Role):
         try:
             if not role in member:

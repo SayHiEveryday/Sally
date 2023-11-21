@@ -9,15 +9,7 @@ class rps(commands.Cog):
         self.client = client
 
     @nextcord.slash_command(name="rps" , description="Play Rock Paper Scissor with bot")
-    async def rps_slash(
-        interaction: nextcord.Interaction,
-        choice=nextcord.SlashOption(
-            name="choice",
-            description="Your choice",
-            choices=["rock" , "paper" , "scissor"],
-            required=True
-        )
-    ):
+    async def rps_slash(interaction: nextcord.Interaction,choice=nextcord.SlashOption(name="choice",description="Your choice",choices=["rock" , "paper" , "scissor"],required=True)):
         randomed = rps[randint(0,2)]
         if randomed == "rock" and choice == "rock":
             w = "Tie"
