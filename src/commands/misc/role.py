@@ -45,7 +45,7 @@ class role(commands.Cog):
         else:
             return
 
-    @nextcord.slsah_command(name="role-add" , description="add role to mentioned member" , default_member_permissions=268435456)
+    @nextcord.slash_command(name="role-add" , description="add role to mentioned member" , default_member_permissions=268435456)
     async def role_slash_add(interaction: nextcord.Interaction , member: nextcord.Member , role: nextcord.Role):
         try:
             if role in member:
