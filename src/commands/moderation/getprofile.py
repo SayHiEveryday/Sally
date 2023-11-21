@@ -10,14 +10,17 @@ class getprofile(commands.Cog):
 
     @nextcord.slash_command(name="get_profile" , description="Get someone's profile")
     async def profile_slash(self,interaction: nextcord.Interaction , member: nextcord.Member , ty = nextcord.SlashOption(name="type" , choices=["banner" , "profile_picture"])):
-        if ty == "banner":
-            user = await bot.fetch_user(member.id)
-            ty2 = user.banner.url
-        else:
-            ty2 = member.display_avatar.url
+        try:
+            if ty == "banner":
+                user = await bot.fetch_user(member.id)
+                ty2 = user.banner.url
+            else:
+                ty2 = member.display_avatar.url
 
-        embed = nextcord.Embed(title=f"**{ty} of {member.name}**").set_image(ty2).set_footer(text=f"command ran by {interaction.user.name}" , icon_url=interaction.user.display_avatar.url)
-        await interaction.response.send_message(embed=embed)
+            embed = nextcord.Embed(title=f"**{ty} of {member.name}**").set_image(ty2).set_footer(text=f"command ran by {interaction.user.name}" , icon_url=interaction.user.display_avatar.url)
+            await interaction.response.send_message(embed=embed)
+        except Exception:
+            await interaction.response.send_message("this command is broken will be fix later" , ephemeral=True)
 
     @commands.command(name="banner")
     async def banner_prefix(self,ctx: commands.Context, member: nextcord.Member):
@@ -28,6 +31,9 @@ class getprofile(commands.Cog):
             await ctx.send(embed=embed)
         except NameError:
             await ctx.reply("this person doesn't have banner")
+        except Exception:
+            await ctx.reply("this command is broken and will be fix later")
+
 
     @commands.command(name="avatar")
     async def avatar_prefix(self,ctx, member: nextcord.Member):
