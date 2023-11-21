@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 from random import randint
 
-rps = ["rock" , "paper" , "scissor"]
+rps: list[str] = ["rock" , "paper" , "scissor"]
 
 class rps(commands.Cog):
     def __init__(self, client):
