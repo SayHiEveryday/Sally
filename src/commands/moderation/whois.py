@@ -76,6 +76,6 @@ class whois(commands.Cog):
         embed.set_footer(text=f"id: {member.id}")
 
         await interaction.response.send_message(embed=embed)
-
+    
 def setup(bot):
     bot.add_cog(whois(bot))
