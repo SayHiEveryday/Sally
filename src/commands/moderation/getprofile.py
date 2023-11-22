@@ -55,6 +55,10 @@ class getprofile(commands.Cog):
             except NameError:
                 return
 
+    @bot.user_command(name="profile")
+    async def user_profile(self, interaction: nextcord.Interaction , member: nextcord.Member):
+        embed = nextcord.Embed(title=f"**Avatar of {member.name}**").set_image(member.display_avatar.url).set_footer(text=f"command ran by {interaction.user.name}" , icon_url=interaction.user.display_avatar.url)
+        await interaction.response.send_message(embed=embed)
 
 def setup(bot):
     bot.add_cog(getprofile(bot))
