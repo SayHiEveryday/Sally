@@ -20,12 +20,12 @@ class onerr(commands.Cog):
             try:
                 secondpart
             except NameError:
-                embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{error}\n```")
+                embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name: {ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{error}\n```")
                 a = await bot.fetch_user(owner)
                 await a.send(embed=embed)
             else:
                 embed = nextcord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
-                embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}```\n{secondpart}\n```")
+                embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{secondpart}\n```")
                 a = await bot.fetch_user(owner)
                 await a.send(embeds=[embed , embed2])
         
