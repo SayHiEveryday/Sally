@@ -1,0 +1,8 @@
+psutil==5.9.6
+nextcord==2.6.0
+requests==2.31.0
+logging==0.4.9.6
+beautifulsoup4==4.12.2
+asyncio==3.4.3
+pydantic==2.5.1
+pydantic-settings==2.1.0
