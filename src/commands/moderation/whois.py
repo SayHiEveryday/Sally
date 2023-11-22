@@ -59,7 +59,7 @@ class whois(commands.Cog):
             embed.set_footer(text=f"id: {ctx.author.id}")
             await ctx.reply(embed=embed)
 
-    @bot.user_command(name="whois" , description="Show basic info of mentioned user")
+    @bot.user_command(name="whois")
     async def whois_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
         jnat = datetime.datetime.strptime(str(member.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
         jnat2 = int(jnat.timestamp())
