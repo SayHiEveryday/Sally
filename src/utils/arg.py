@@ -206,7 +206,10 @@ kill = [
     "Our lord and savior Gaben strikes $mention with a lighting bolt.",
     "Sorry, $author, I don't like killing people.",
     "The bullet missed Harambe and hit $mention instead. Yay for Harambe!",
-    "While performing colonoscopy on an elephant, $mention gets their head stuck in the elephants rectum and chokes."
-    
+    "While performing colonoscopy on an elephant, $mention gets their head stuck in the elephants rectum and chokes.",
+    "$author had a blast outsmarting $mention in a thrilling showdown.",
+    "$author took $mention out of the equation in a hilariously unexpected manner.",
+    "$author took $mention out for a joyride on a rollercoaster of fate, leaving $mention breathless in a thrilling twist of destiny.",
+    "$author tried to kill $mention but failed"
 ]
 
