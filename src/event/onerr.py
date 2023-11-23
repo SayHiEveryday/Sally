@@ -12,6 +12,8 @@ class onerr(commands.Cog):
     async def on_command_error(self,ctx,error):
         if isinstance(error,commands.MissingRequiredArgument):
             await ctx.reply("hey! missing required argument (this is global error handling)")
+        elif isinstance(error,commands.CommandNotFound):
+            pass
         else:
             global errorg
             errorg = error
