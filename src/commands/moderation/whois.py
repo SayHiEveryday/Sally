@@ -8,12 +8,20 @@ class whois(commands.Cog):
 
     @nextcord.slash_command(name="whois" , description="Show basic info of mentioned user")
     async def whois_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
+        if member.status == "online":
+            c = 0x3BA55C
+        elif member.status == "idle":
+            c = 0xFAA61A
+        elif member.status == "dnd":
+            c = 0xED4245
+        elif member.status == "offline":
+            c = 0x747F8D
         jnat = datetime.datetime.strptime(str(member.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
         jnat2 = int(jnat.timestamp())
         rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
         rgat2 = int(rgat.timestamp())
 
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=0x5865F2 , timestamp=datetime.datetime.now())
+        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
         embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
         embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
         embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -25,13 +33,22 @@ class whois(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @commands.command(name="whois")
-    async def whois_prefix(self,ctx , member: nextcord.Member):
+    async def whois_prefix(self,ctx: commands.Context , member: nextcord.Member):
+        if member.status == "online":
+            c = 0x3BA55C
+        elif member.status == "idle":
+            c = 0xFAA61A
+        elif member.status == "dnd":
+            c = 0xED4245
+        elif member.status == "offline":
+            c = 0x747F8D
+
         jnat = datetime.datetime.strptime(str(member.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
         jnat2 = int(jnat.timestamp())
         rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
         rgat2 = int(rgat.timestamp())
 
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=0x5865F2 , timestamp=datetime.datetime.now())
+        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
         embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
         embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
         embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -44,12 +61,21 @@ class whois(commands.Cog):
     @whois_prefix.error
     async def error(self,ctx , error):
         if isinstance(error , commands.MissingRequiredArgument):
+
+            if ctx.author.status == "online":
+                c = 0x3BA55C
+            elif ctx.author.status == "idle":
+                c = 0xFAA61A
+            elif ctx.author.status == "dnd":
+                c = 0xED4245
+            elif ctx.author.status == "offline":
+                c = 0x747F8D
             jnat = datetime.datetime.strptime(str(ctx.author.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
             jnat2 = int(jnat.timestamp())
             rgat = datetime.datetime.strptime(str(ctx.author.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
             rgat2 = int(rgat.timestamp())
 
-            embed = nextcord.Embed(title=f"Basic infomation of {ctx.author.display_name}",colour=0x5865F2 , timestamp=datetime.datetime.now())
+            embed = nextcord.Embed(title=f"Basic infomation of {ctx.author.display_name}",colour=c , timestamp=datetime.datetime.now())
             embed.add_field(name="User:" , value=f"{ctx.author.name}" , inline=True)
             embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
             embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -61,12 +87,20 @@ class whois(commands.Cog):
 
     @bot.user_command(name="whois")
     async def whois_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
+        if member.status == "online":
+            c = 0x3BA55C
+        elif member.status == "idle":
+            c = 0xFAA61A
+        elif member.status == "dnd":
+            c = 0xED4245
+        elif member.status == "offline":
+            c = 0x747F8D
         jnat = datetime.datetime.strptime(str(member.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
         jnat2 = int(jnat.timestamp())
         rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
         rgat2 = int(rgat.timestamp())
 
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=0x5865F2 , timestamp=datetime.datetime.now())
+        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
         embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
         embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
         embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)

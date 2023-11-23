@@ -10,3 +10,7 @@ for root, dirs, files in os.walk(directory):
         for subroot, subdirs, subfiles in os.walk(os.path.join(root, subdir)):
             for subfile in subfiles:
                 initial_extension.append(f"commands.{os.path.basename(subroot)}.{subfile[:-3]}")
+
+for filename in os.listdir(os.path.dirname(__file__) + "\..\..\event"):
+    if filename.endswith(".py"):
+        initial_extension.append("event." + filename[:-3])
