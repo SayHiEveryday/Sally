@@ -1,20 +1,20 @@
-import nextcord
-from nextcord.ext import commands
-from utils.run import bot
-
+import discord
+from discord.ext import commands
+from utils.arg import bot
+from discord import app_commands
 
 class pingcmd(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command()
-    async def pings(self,interaction: nextcord.Interaction):
+    @app_commands.command()
+    async def pings(self,interaction: discord.Interaction):
         await interaction.send(f"Pong! my ping is `{round(bot.latency) * 1000}` ms , websocket is `{round(bot.ws.latency) * 1000}` ms")
 
     @commands.command()
-    async def ping(self,interaction: nextcord.Interaction):
+    async def ping(self,interaction: discord.Interaction):
         await interaction.send(f"Pong! my ping is `{round(bot.latency) * 1000}` ms , websocket is `{round(bot.ws.latency) * 1000}` ms")
 
 
-def setup(bot):
-    bot.add_cog(pingcmd(bot))
+async def setup(bot):
+    await bot.add_cog(pingcmd(bot))

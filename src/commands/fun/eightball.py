@@ -1,15 +1,16 @@
-import nextcord
-import nextcord.ext
-from nextcord.ext import commands
+import discord
+import discord.ext
+from discord.ext import commands
 import random
 from utils.arg import answer
+from discord import app_commands
 
 class eightball(commands.Cog):
     def __init__(self, client):
         self.client = client
         
-    @nextcord.slash_command(name="8ball" , description="Help decide a question")
-    async def eightball_slash(self,interaction: nextcord.Interaction , question: str):
+    @app_commands.command(name="8ball" , description="Help decide a question")
+    async def eightball_slash(self,interaction: discord.Interaction , question: str):
         num = random.randint(0,len(answer))
 
 
@@ -26,5 +27,5 @@ class eightball(commands.Cog):
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("Missing Required Argument")
 
-def setup(bot):
-    bot.add_cog(eightball(bot))
+async def setup(bot):
+    await bot.add_cog(eightball(bot))

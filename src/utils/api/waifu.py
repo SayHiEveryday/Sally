@@ -6,6 +6,6 @@ def wai() -> str:
         'is_nsfw': "True"
     }
     res = requests.get(url=url , params=para)
-    photo = res.json()["image"]
+    photo = res.json()["images"]
     photo_url = (photo)[0]["url"]
     return photo_url

@@ -1,6 +1,6 @@
 import subprocess
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 class shell(commands.Cog):
     def __init__(self, client):
@@ -21,5 +21,5 @@ class shell(commands.Cog):
             await ctx.reply('Error..., Missing Permission ')
 
 
-def setup(bot):
-    bot.add_cog(shell(bot))
+async def setup(bot):
+    await bot.add_cog(shell(bot))

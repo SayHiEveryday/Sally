@@ -1,8 +1,5 @@
-import nextcord , json , os
-from nextcord.ext import commands
-from utils.run import bot
-
-
+import json , os
+from discord.ext import commands
 
 class guildjoin(commands.Cog):
     def __init__(self,client):
@@ -20,5 +17,5 @@ class guildjoin(commands.Cog):
             json.dump(prefix , f)
 
 
-def setup(bot):
-    bot.add_cog(guildjoin(bot))
+async def setup(bot):
+    await bot.add_cog(guildjoin(bot))

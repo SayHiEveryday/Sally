@@ -1,5 +1,5 @@
-import nextcord , nextcord.ext , ast
-from nextcord.ext import commands
+import discord , discord.ext , ast
+from discord.ext import commands
 import utils
 
 def insert_returns(body):
@@ -39,7 +39,7 @@ class evalcmd(commands.Cog):
 
             env = {
                 'bot': ctx.bot,
-                'discord': nextcord,
+                'discord': discord,
                 'commands': commands,
                 'ctx': ctx,
                 '__import__': __import__
@@ -56,8 +56,8 @@ class evalcmd(commands.Cog):
     @eval_fn.error
     async def error(self,ctx,error):
         if isinstance(error , commands.MissingRequiredArgument):
-            embed = nextcord.Embed(title="Result" , description="```undefinded```")
+            embed = discord.Embed(title="Result" , description="```undefinded```")
             await ctx.reply(embed=embed)
 
-def setup(bot):
-    bot.add_cog(evalcmd(bot))
+async def setup(bot):
+    await bot.add_cog(evalcmd(bot))

@@ -1,19 +1,21 @@
-import nextcord
-import nextcord.ext
-from nextcord.ext import commands
+import discord
+import discord.ext
+from discord.ext import commands
 import datetime
+from discord import app_commands
 
 class purge(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="purge" , description="Delete message in the channel by amount" , default_member_permissions=8192)
-    async def purge_slash(self,interaction: nextcord.Interaction , amount: int = nextcord.SlashOption(description="Amount maximium is 100")):
+    @app_commands.command(name="purge" , description="Delete message in the channel by amount")
+    @app_commands.default_permissions(manage_messages=True)
+    async def purge_slash(self,interaction: discord.Interaction , amount: int):
         if interaction.user.guild_permissions.manage_messages:
             if amount < 101:
                 channel = interaction.channel
                 deleted = await channel.purge(limit=amount)
-                embed = nextcord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {interaction.user.name}" , icon_url=interaction.user.avatar.url)
+                embed = discord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {interaction.user.name}" , icon_url=interaction.user.avatar.url)
                 await channel.send(embed=embed , delete_after=5)
             else:
                 await interaction.response.send_message("Maximium purge is 100" , ephemeral=True)
@@ -27,7 +29,7 @@ class purge(commands.Cog):
             await ctx.message.delete()
             channel = ctx.channel
             deleted = await channel.purge(limit=amount)
-            embed = nextcord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
+            embed = discord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
             await ctx.send(embed=embed)
         else:
             await ctx.reply("Maximium purge is 100" , ephemeral=True)
@@ -40,5 +42,5 @@ class purge(commands.Cog):
             await ctx.reply("Lack of permission: `manage message`")
 
 
-def setup(bot):
-    bot.add_cog(purge(bot))
+async def setup(bot):
+    await bot.add_cog(purge(bot))

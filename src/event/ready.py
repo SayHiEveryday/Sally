@@ -1,6 +1,6 @@
-import nextcord
-from nextcord.ext import commands
-from utils.run import bot
+import discord
+from discord.ext import commands
+from utils.arg import bot
 
 
 class ready(commands.Cog):
@@ -11,8 +11,9 @@ class ready(commands.Cog):
     async def on_ready(self):
         print("name: " + bot.user.name)
         print("id: " + str(bot.user.id))
-        activity = nextcord.Game(name="/help")
-        await bot.change_presence(status=nextcord.Status.idle, activity=activity)
+        activity = discord.Game(name="/help")
+        await bot.change_presence(status=discord.Status.idle, activity=activity)
+        await bot.tree.sync()
 
-def setup(bot):
-    bot.add_cog(ready(bot))
+async def setup(bot):
+    await bot.add_cog(ready(bot))

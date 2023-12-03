@@ -1,16 +1,17 @@
-import nextcord
+import discord
 from utils.api.urban import urban
-from nextcord.ext import commands
+from discord.ext import commands
+from discord import app_commands
 
 class urban(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="urban" , description="Search urban dictionary")
-    async def urban_slash(self,interaction: nextcord.Interaction , word:str):
+    @app_commands.command(name="urban" , description="Search urban dictionary")
+    async def urban_slash(self,interaction: discord.Interaction , word:str):
         get = urban(word)
-        embed = nextcord.Embed(title=f"**Result for {word}**" , description=f"**definition:** {get['Definition']}\n**Link:** {get['permalink']}\n**Author:** {get['author']}\n**Written on:** {get['written_on']}\n**Example:** {get['example']}" , colour=0x5865F2)
+        embed = discord.Embed(title=f"**Result for {word}**" , description=f"**definition:** {get['Definition']}\n**Link:** {get['permalink']}\n**Author:** {get['author']}\n**Written on:** {get['written_on']}\n**Example:** {get['example']}" , colour=0x5865F2)
         await interaction.response.send_message(embed=embed)
 
-def setup(bot):
-    bot.add_cog(urban(bot))
+async def setup(bot):
+    await bot.add_cog(urban(bot))

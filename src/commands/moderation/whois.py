@@ -1,13 +1,13 @@
-import nextcord , datetime
-from nextcord.ext import commands
-from utils.arg import bot
+import discord , datetime
+from discord.ext import commands
+from discord import app_commands
 
 class whois(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="whois" , description="Show basic info of mentioned user")
-    async def whois_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
+    @app_commands.command(name="whois" , description="Show basic info of mentioned user")
+    async def whois_slash(self,interaction: discord.Interaction , member: discord.Member):
         if member.status == "online":
             c = 0x3BA55C
         elif member.status == "idle":
@@ -21,7 +21,7 @@ class whois(commands.Cog):
         rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
         rgat2 = int(rgat.timestamp())
 
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
+        embed = discord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
         embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
         embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
         embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -33,7 +33,7 @@ class whois(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @commands.command(name="whois")
-    async def whois_prefix(self,ctx: commands.Context , member: nextcord.Member):
+    async def whois_prefix(self,ctx: commands.Context , member: discord.Member):
         if member.status == "online":
             c = 0x3BA55C
         elif member.status == "idle":
@@ -48,7 +48,7 @@ class whois(commands.Cog):
         rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
         rgat2 = int(rgat.timestamp())
 
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
+        embed = discord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
         embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
         embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
         embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -75,7 +75,7 @@ class whois(commands.Cog):
             rgat = datetime.datetime.strptime(str(ctx.author.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
             rgat2 = int(rgat.timestamp())
 
-            embed = nextcord.Embed(title=f"Basic infomation of {ctx.author.display_name}",colour=c , timestamp=datetime.datetime.now())
+            embed = discord.Embed(title=f"Basic infomation of {ctx.author.display_name}",colour=c , timestamp=datetime.datetime.now())
             embed.add_field(name="User:" , value=f"{ctx.author.name}" , inline=True)
             embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
             embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
@@ -85,31 +85,5 @@ class whois(commands.Cog):
             embed.set_footer(text=f"id: {ctx.author.id}")
             await ctx.reply(embed=embed)
 
-    @bot.user_command(name="whois")
-    async def whois_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
-        if member.status == "online":
-            c = 0x3BA55C
-        elif member.status == "idle":
-            c = 0xFAA61A
-        elif member.status == "dnd":
-            c = 0xED4245
-        elif member.status == "offline":
-            c = 0x747F8D
-        jnat = datetime.datetime.strptime(str(member.joined_at), "%Y-%m-%d %H:%M:%S.%f%z")
-        jnat2 = int(jnat.timestamp())
-        rgat = datetime.datetime.strptime(str(member.created_at), "%Y-%m-%d %H:%M:%S.%f%z")
-        rgat2 = int(rgat.timestamp())
-
-        embed = nextcord.Embed(title=f"Basic infomation of {member.display_name}",colour=c , timestamp=datetime.datetime.now())
-        embed.add_field(name="User:" , value=f"{member.name}" , inline=True)
-        embed.add_field(name="Join at:" , value=f"<t:{jnat2}:F>" , inline=True)
-        embed.add_field(name="Registerd at:" , value=f"<t:{rgat2}:F>" , inline=True)
-        embed.add_field(name="Role[" + str(len(member.roles)) + "]" , value=f",".join([f"<@&{r.id}>" for r in member.roles]) , inline=False)
-        embed.set_author(name=f"Command ran by {interaction.user.name}" , icon_url=interaction.user.display_avatar.url)
-        embed.set_thumbnail(member.display_avatar.url)
-        embed.set_footer(text=f"id: {member.id}")
-
-        await interaction.response.send_message(embed=embed)
-    
-def setup(bot):
-    bot.add_cog(whois(bot))
+async def setup(bot):
+    await bot.add_cog(whois(bot))

@@ -1,5 +1,5 @@
-import nextcord , os , sys
-from nextcord.ext import commands
+import discord , os , sys
+from discord.ext import commands
 
 def restart_bot(): 
     os.execv(sys.executable, ['python'] + sys.argv)
@@ -16,5 +16,5 @@ class res(commands.Cog):
         else:
             await ctx.reply("No perm <:kek:1171280846536314991>")
 
-def setup(bot):
-    bot.add_cog(res(bot))
+async def setup(bot):
+    await bot.add_cog(res(bot))

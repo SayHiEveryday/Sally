@@ -1,17 +1,18 @@
-import nextcord 
+import discord 
 from utils.api import ram
-from nextcord.ext import commands
+from discord.ext import commands
+from discord import app_commands
 
 class pout(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="pout" , description="Send pout gif")
-    async def pout_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
+    @app_commands.command(name="pout" , description="Send pout gif")
+    async def pout_slash(self,interaction: discord.Interaction , member: discord.Member):
         if member.id == interaction.user.id:
-            embed = nextcord.Embed(
+            embed = discord.Embed(
                 title=f"{interaction.user.name} pouts themself",
-                colour=nextcord.Color.random(),
+                colour=discord.Color.random(),
             ).set_image(
                 ram.rammore("pout")
             ).set_footer(
@@ -20,9 +21,9 @@ class pout(commands.Cog):
             )
             await interaction.response.send_message(embed=embed)
             return
-        embed = nextcord.Embed(
+        embed = discord.Embed(
             title=f"{interaction.user.name} pouts at {member.name}",
-            colour=nextcord.Color.random()
+            colour=discord.Color.random()
         ).set_footer(
             text="command ran by {}".format(interaction.user.name),
             icon_url=interaction.user.display_avatar.url
@@ -32,10 +33,10 @@ class pout(commands.Cog):
         await interaction.response.send_message(embed=embed)
 
     @commands.command(name="pout")
-    async def pout_prefix(self,ctx,member:nextcord.Member):
-        embed = nextcord.Embed(
+    async def pout_prefix(self,ctx,member:discord.Member):
+        embed = discord.Embed(
             title=f"{ctx.author.name} pouts at {member.name}",
-            colour=nextcord.Color.random()
+            colour=discord.Color.random()
         ).set_footer(
             text="command ran by {}".format(ctx.author.name),
             icon_url=ctx.author.display_avatar.url
@@ -47,9 +48,9 @@ class pout(commands.Cog):
     @pout_prefix.error
     async def pout_error(self,ctx,error):
         if isinstance(error, commands.MissingRequiredArgument):
-            embed = nextcord.Embed(
+            embed = discord.Embed(
                 title=f"{ctx.authot.name} pouts themself",
-                colour=nextcord.Color.random(),
+                colour=discord.Color.random(),
             ).set_image(
                 ram.rammore("pout")
             ).set_footer(
@@ -57,5 +58,5 @@ class pout(commands.Cog):
                 icon_url=ctx.author.display_avatar.url
             )
             await ctx.send(embed=embed)
-def setup(bot):
-    bot.add_cog(pout(bot))
+async def setup(bot):
+    await bot.add_cog(pout(bot))

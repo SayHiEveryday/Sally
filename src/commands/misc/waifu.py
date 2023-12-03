@@ -1,5 +1,6 @@
-from nextcord.ext import commands
+from discord.ext import commands
 from utils.api.waifu import wai
+
 class waifu(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -8,5 +9,5 @@ class waifu(commands.Cog):
     async def waifu(self,ctx: commands.Context):
         await ctx.reply(wai())
 
-def setup(bot):
-    bot.add_cog(bot)
+async def setup(bot):
+    await bot.add_cog(waifu(bot))

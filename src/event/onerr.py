@@ -1,6 +1,6 @@
-import nextcord , json , os
-from nextcord.ext import commands
-from utils.run import bot
+import discord , json , os
+from discord.ext import commands
+from utils.arg import bot
 from utils.arg import owner
 
 
@@ -22,15 +22,15 @@ class onerr(commands.Cog):
             try:
                 secondpart
             except NameError:
-                embed = nextcord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name: {ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{error}\n```")
+                embed = discord.Embed(title="Command Error!" , description=f"Command: {ctx.command}\nGuild name: {ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{error}\n```")
                 a = await bot.fetch_user(owner)
                 await a.send(embed=embed)
             else:
-                embed = nextcord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
-                embed2 = nextcord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{secondpart}\n```")
+                embed = discord.Embed(title="Command Error first part" , description=f"```\n{firstpart}\n```")
+                embed2 = discord.Embed(title="Second part" , description=f"Command: {ctx.command}\nGuild name:{ctx.guild.name}\nGuild id: {ctx.guild.id}\n```\n{secondpart}\n```")
                 a = await bot.fetch_user(owner)
                 await a.send(embeds=[embed , embed2])
         
 
-def setup(bot):
-    bot.add_cog(onerr(bot))
+async def setup(bot):
+    await bot.add_cog(onerr(bot))

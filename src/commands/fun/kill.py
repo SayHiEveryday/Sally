@@ -1,15 +1,16 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import asyncio
 from utils.arg import kill
 import random
+from discord import app_commands
 
 class kill(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @nextcord.slash_command(name="kill" , description="Hate someone? Kill them!")
-    async def kill_slash(self,interaction: nextcord.Interaction , member: nextcord.Member):
+    @app_commands.command(name="kill" , description="Hate someone? Kill them!")
+    async def kill_slash(self,interaction: discord.Interaction , member: discord.Member):
         if member.id == interaction.user.id:
             await interaction.response.send_message(f"<@{interaction.user.name}> killed themself")
             return
@@ -22,7 +23,7 @@ class kill(commands.Cog):
         await interaction.followup.send(kill[random.randint(0,185)].replace("$mention" , f"<@{member.id}>").replace("$author" , f"<@{interaction.user.id}>"))
 
     @commands.command(name="kill")
-    async def kill_prefix(self,ctx , member: nextcord.Member):
+    async def kill_prefix(self,ctx , member: discord.Member):
         if member.id == ctx.author.id:
             await ctx.send(f"<@{ctx.author.id}> killed themself")
             return
@@ -38,5 +39,5 @@ class kill(commands.Cog):
             await ctx.reply("Ok you're dead. Please mention someone else to kill.")
 
 
-def setup(bot):
-    bot.add_cog(kill(bot))
+async def setup(bot):
+    await bot.add_cog(kill(bot))

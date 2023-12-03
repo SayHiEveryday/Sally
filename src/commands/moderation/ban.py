@@ -1,14 +1,16 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import datetime
 from utils.handler.getprefix import get_prefix
+from discord import app_commands
 
 class ban(commands.Cog):
     def __init__(self,client):
         self.client = client
 
-    @nextcord.slash_command(name="ban" , description="Ban a member" , default_member_permissions=4)
-    async def ban_slash(self,interaction: nextcord.Interaction , member: nextcord.Member , reason: str):
+    @app_commands.command(name="ban" , description="Ban a member")
+    @app_commands.default_permissions(ban_members=True)
+    async def ban_slash(self,interaction: discord.Interaction , member: discord.Member , reason: str):
         if member.guild_permissions.administrator:
             await interaction.response.send_message("I can't ban a member who have administrator permission" , ephemeral=True)
             return
@@ -19,13 +21,13 @@ class ban(commands.Cog):
             await interaction.response.send_message("Hey! you can't ban yourself" , ephemeral=True)
 
         await interaction.response.send_message("Success" , ephemeral=True)
-        embed = nextcord.Embed(title=f"**{member.name} Banned**" , description=f"**info:**\n Moderator: <@{interaction.user.id}>\nBanned: {member.name}\n Reason: {reason}" , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_author(name="Keep in mind no log record yet").set_footer(text=f"command ran by {interaction.user.name}" , icon_url=interaction.user.avatar.url)
+        embed = discord.Embed(title=f"**{member.name} Banned**" , description=f"**info:**\n Moderator: <@{interaction.user.id}>\nBanned: {member.name}\n Reason: {reason}" , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_author(name="Keep in mind no log record yet").set_footer(text=f"command ran by {interaction.user.name}" , icon_url=interaction.user.avatar.url)
         await member.ban(reason=f"Moderator: {interaction.user.name} , Reason: {reason}")
         await interaction.channel.send(embed=embed)
 
     @commands.command(name="ban")
     @commands.has_permissions(ban_members=True)
-    async def ban_prefix(self,ctx, member: nextcord.Member ,*, reason:str):
+    async def ban_prefix(self,ctx, member: discord.Member ,*, reason:str):
         if member == None:
             await ctx.reply("You need to mention a member to ban!")
             return
@@ -41,7 +43,7 @@ class ban(commands.Cog):
             return
         
         await ctx.message.delete()
-        embed = nextcord.Embed(title=f"**{member.name} Banned**" , description=f"**info:**\n Moderator: <@{ctx.author.id}>\nBanned: {member.name}\n Reason: {reason}" , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_author(name="Keep in mind no log record yet").set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
+        embed = discord.Embed(title=f"**{member.name} Banned**" , description=f"**info:**\n Moderator: <@{ctx.author.id}>\nBanned: {member.name}\n Reason: {reason}" , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_author(name="Keep in mind no log record yet").set_footer(text=f"command ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
         await member.ban(reason=f"Moderator: {ctx.author.name} , Reason: {reason}")
         await ctx.channel.send(embed=embed)
 
@@ -51,12 +53,12 @@ class ban(commands.Cog):
             await ctx.reply("Missing Permission: `ban_members`")
             return
         if isinstance(error , commands.MissingRequiredArgument):
-            embed = nextcord.Embed(
+            embed = discord.Embed(
                 title="**Hey! missing required argument**",
                 description=f"how to use?\n {get_prefix}ban [member][reason]",
-                colour=nextcord.Color.random()
+                colour=discord.Color.random()
                 )
             await ctx.reply(embed=embed)
 
-def setup(bot):
-    bot.add_cog(ban(bot))
+async def setup(bot):
+    await bot.add_cog(ban(bot))
