@@ -9,9 +9,9 @@ intent.message_content = True
 intent.emojis = True
 
 bot = commands.AutoShardedBot(help_command=None , intents=intent , command_prefix=get_prefix)
-token = "MTE0MDIxMzM2Njg3NTQ4ODMwNw.Gw-dTe.DuxvdR4gr6TsrFAqisbyTI1de9FrVFZRwBKt-4";
+token = token
 owner = 698851209032761384;
-token2= "MTA3MDcwNzgwMzg1NDk5OTYzMw.GH9lGA.upaj-t-fhSOyt6Zw24yXBQ1-A5TuADDqGPCwoc"
+token2= token2
 answer = [
     "Indeed",
     "Absolutely",
