@@ -1,6 +1,7 @@
 import json , os , discord
 from discord.ext import commands
 from storage.arg import bot
+import aiosqlite
 
 class guildjoin(commands.Cog):
     def __init__(self,client):
@@ -19,7 +20,8 @@ class guildjoin(commands.Cog):
         with open(os.path.dirname(__file__) + "/../storage/prefix.json" , "w") as f:
             json.dump(prefix , f)
         f.close()
-
+        async with aiosqlite.connect("storage/prefix.sqlite") as db:
+            await db.execute(f"SELECT * FROM prefix WHERE guild = {str(guild.id)}")
 
 async def setup(bot):
     await bot.add_cog(guildjoin(bot))

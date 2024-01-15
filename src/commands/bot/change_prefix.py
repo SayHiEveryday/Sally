@@ -1,4 +1,4 @@
-import discord , json , os
+import discord , json , os , aiosqlite
 from discord.ext import commands
 from discord import app_commands
 from utils.handler.logcmd import *
@@ -9,29 +9,23 @@ class change_prefix(commands.Cog):
     @app_commands.command(name="change_prefix" , description="Change bot prefix")
     @app_commands.default_permissions(administrator=True)
     async def changeprefix_slash(self,interaction: discord.Interaction , newprefix:str):
-        with open(os.path.dirname(__file__) + "/../../storage/prefix.json" , "r") as f:
-            prefix = json.load(f)
-
-        prefix[str(interaction.guild.id)] = newprefix
-
-        with open(os.path.dirname(__file__) + "/../../storage/prefix.json" , "w") as f:
-            json.dump(prefix , f)
+        
+        async with aiosqlite.connect("storage/prefix.sqlite") as db:
+            await db.execute(f"UPDATE prefix SET prefix = '{str(newprefix)}' WHERE guild = {interaction.guild.id}")
+            await db.commit()
 
         await interaction.response.send_message(f"Prefix changed! new prefix: {newprefix}")
 
     @commands.command(name="change_prefix")
     @commands.has_permissions(administrator=True)
     async def changeprefix_prefix(self,ctx , newprefix:str):
+        
+        async with aiosqlite.connect("storage/prefix.sqlite") as db:
+            await db.execute(f"UPDATE prefix SET prefix = '{str(newprefix)}' WHERE guild = {ctx.guild.id}")
+            await db.commit()
 
-        with open(os.path.dirname(__file__) + "/../../storage/prefix.json" , "r") as f:
-            prefix = json.load(f)
+        await ctx.reply(f"Prefix changed! new prefix: {newprefix}")
 
-        prefix[str(ctx.guild.id)] = newprefix
-
-        with open(os.path.dirname(__file__) + "/../../storage/prefix.json" , "w") as f:
-            json.dump(prefix , f)
-
-        await ctx.send(f"Prefix changed! new prefix: {newprefix}")
 
     @changeprefix_prefix.error
     async def error(self,ctx,error):

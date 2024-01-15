@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from utils.handler.getprefix import get_prefix
+from utils.handler.getprefix import sql_get_prefix
 from .config import *
 intent = discord.Intents.all()
 intent.members = True
@@ -8,7 +8,7 @@ intent.guilds = True
 intent.message_content = True
 intent.emojis = True
 
-bot = commands.AutoShardedBot(help_command=None , intents=intent , command_prefix=get_prefix)
+bot = commands.AutoShardedBot(help_command=None , intents=intent , command_prefix=sql_get_prefix)
 token = token
 owner = 698851209032761384;
 token2= token2
