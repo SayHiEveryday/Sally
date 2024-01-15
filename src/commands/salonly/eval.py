@@ -1,6 +1,6 @@
 import discord , discord.ext , ast
 from discord.ext import commands
-import utils
+from utils.handler.logcmd import *
 
 def insert_returns(body):
         # insert return stmt if the last expression is a expression statement
@@ -23,6 +23,7 @@ class evalcmd(commands.Cog):
 
     @commands.command(name="eval")
     async def eval_fn(self,ctx, *, cmd):
+        logcmd(name=ctx.command,author=ctx.author,guild=ctx.guild,arg=cmd)
         if ctx.author.id == 698851209032761384:
             fn_name = "_eval_expr"
 
@@ -51,13 +52,15 @@ class evalcmd(commands.Cog):
             except Exception as e:
                 await ctx.send(e)
         else:
-            await ctx.send("missing permission")
+            await ctx.reply("No superuser detected, Are you root?")
         
     @eval_fn.error
     async def error(self,ctx,error):
         if isinstance(error , commands.MissingRequiredArgument):
-            embed = discord.Embed(title="Result" , description="```undefinded```")
-            await ctx.reply(embed=embed)
-
+            if ctx.author.id == 698851209032761384:
+                embed = discord.Embed(title="Result" , description="```undefinded```")
+                await ctx.reply(embed=embed)
+            else:
+                await ctx.reply("No superuser detected, Are you root?")
 async def setup(bot):
     await bot.add_cog(evalcmd(bot))

@@ -26,8 +26,8 @@ class fakemod(commands.Cog):
         embed2 = discord.Embed(title=f"**You have been {action.name} from {interaction.guild.name}**",description=f"With reason: {reason}\n**THIS IS A JOKE**",colour=0xff0000,timestamp=datetime.datetime.now()).set_footer(text=f"Command ran by {interaction.user.name}",icon_url=interaction.user.avatar.url)
         embed3 = discord.Embed(title=f"**{member.name} have been {action.name} from {interaction.guild}**",description=f"With reason: {reason} \n**THIS IS A JOKE**",colour=0xff0000,timestamp=datetime.datetime.now()).set_footer(text=f"Command ran by {interaction.user.name}",icon_url=interaction.user.avatar.url)
         embed4 = discord.Embed(title=f"**You have been {action.name} from {interaction.guild.name}**",description=f"With reason: {reason}",colour=0xff0000,timestamp=datetime.datetime.now()).set_footer(text=f"Command ran by {interaction.user.name}",icon_url=interaction.user.avatar.url)
-        msg = await interaction.response.send_message(embed=embed1,ephemeral=False)
-        
+        await interaction.response.send_message(embed=embed1,ephemeral=False)
+        msg = await interaction.original_response()
         msg2 = await member.send(embed=embed4)
         await asyncio.sleep(5)
         await msg.edit(embed=embed3)

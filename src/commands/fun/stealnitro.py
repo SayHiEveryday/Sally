@@ -12,39 +12,40 @@ class stealnitro(commands.Cog):
     @app_commands.command(name="stealnitro" , description="being poor? just steal other people nitro!")
     async def steals(self,interaction: discord.Interaction , member: discord.Member):
         if member.bot.real:
-            await interaction.send("you can't steal bot nitro :skull: :skull: :skull: :skull:")
+            await interaction.response.send_message("you can't steal bot nitro :skull: :skull: :skull: :skull:")
             return
         
         if member.id == interaction.user.id:
-            await interaction.send("you can't steal your own nitro :skull: :skull: :skull: :skull:")
+            await interaction.response.send_message("you can't steal your own nitro :skull: :skull: :skull: :skull:")
             return
 
         if interaction.user.guild_permissions.administrator:
             embed = discord.Embed(description="```checking user 1/3```")
             embed2 = discord.Embed(description="```stealing nitro 2/3 \n```")
             embed3 = discord.Embed(description=f"```sending nitro to {interaction.user.name} 3/3```")
-            await interaction.send(embed=embed)
+            await interaction.response.send_message(embed=embed)
             await asyncio.sleep(random.randint(1,3))
-            await interaction.edit_original_message(embed=embed2)
+            msg = await interaction.original_response()
+            await msg.edit(embed=embed2)
             await asyncio.sleep(random.randint(1,3))
             take = random.randint(1,4)
             if take == 1:
                 await asyncio.sleep(random.randint(1,3))
-                await interaction.edit_original_message(embed=embed3)
+                await msg.edit(embed=embed3)
                 await asyncio.sleep(random.randint(1,3))
                 embed1 = discord.Embed(title="**Success**" , description=f"{interaction.user.mention} have successfully steal nitro from <@{member.id}> \n **your nitro will last for {random.randint(1,60)} minutes**")
                 embed1.set_footer(icon_url=interaction.user.display_avatar.url , text=f"Commands ran by {interaction.user.name}")
-                await interaction.edit_original_message(embed=embed1)
+                await msg.edit(embed=embed1)
             else:
                 embed4 = discord.Embed(title="Failed :sob:" , description=f"Fail to steal nitro from {member.mention}")
                 embed4.set_footer(icon_url=interaction.user.display_avatar.url , text=f"Commands ran by {interaction.user.name}")
-                await interaction.edit_original_message(embed=embed4)
+                await msg.edit(embed=embed4)
                 take2 = random.randint(1,2)
                 if take2 == 1:
                     await asyncio.sleep(1)
                     embed5 = discord.Embed(title="Failed :sob:" , description=f"Fail to steal nitro from {member.mention} \n but instead {member.mention} steal {interaction.user.mention}'s nitro \n **and the nitro will last for {random.randint(1,60)} minutes**")
                     embed5.set_footer(icon_url=interaction.user.display_avatar.url , text=f"Commands ran by {interaction.user.name}")
-                    await interaction.edit_original_message(embed=embed5)
+                    await msg.edit(embed=embed5)
                     
     @commands.command(name="stealnitro")
     async def stealp(self,ctx, member: discord.Member):

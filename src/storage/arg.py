@@ -1,11 +1,17 @@
 import discord
 from discord.ext import commands
 from utils.handler.getprefix import get_prefix
+from .config import *
+intent = discord.Intents.all()
+intent.members = True
+intent.guilds = True
+intent.message_content = True
+intent.emojis = True
 
-bot = commands.Bot(help_command=None , intents=discord.Intents.all() , command_prefix=get_prefix)
-token = "";
-owner = "";
-
+bot = commands.AutoShardedBot(help_command=None , intents=intent , command_prefix=get_prefix)
+token = "MTE0MDIxMzM2Njg3NTQ4ODMwNw.Gw-dTe.DuxvdR4gr6TsrFAqisbyTI1de9FrVFZRwBKt-4";
+owner = 698851209032761384;
+token2= "MTA3MDcwNzgwMzg1NDk5OTYzMw.GH9lGA.upaj-t-fhSOyt6Zw24yXBQ1-A5TuADDqGPCwoc"
 answer = [
     "Indeed",
     "Absolutely",

@@ -18,7 +18,7 @@ class pat(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = discord.Embed(title=f"**{interaction.user.name} pat {member.name}!**").set_image(ram.rammore("pat"))
+        embed = discord.Embed(title=f"**{interaction.user.name} pat {member.name}!**").set_image(url=ram.rammore("pat"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="pat")
@@ -30,7 +30,7 @@ class pat(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> pat robot but robot doesn't have feeling.")
             return
 
-        embed = discord.Embed(title=f"**{ctx.author.name} pat {member.name}!**").set_image(ram.rammore("pat"))
+        embed = discord.Embed(title=f"**{ctx.author.name} pat {member.name}!**").set_image(url=ram.rammore("pat"))
         await ctx.send(embed=embed)
 
     @pat_prefix.error

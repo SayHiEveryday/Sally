@@ -24,20 +24,20 @@ class purge(commands.Cog):
 
     @commands.command(name="purge")
     @commands.has_permissions(manage_messages=True)
-    async def purge_prefix(self,ctx, amount: int):
+    async def purge_prefix(self,ctx: commands.Context, amount: int):
         if amount < 101:
             await ctx.message.delete()
             channel = ctx.channel
             deleted = await channel.purge(limit=amount)
             embed = discord.Embed(title=f'Deleted {len(deleted)} message(s)' , colour=0x5865F2 , timestamp=datetime.datetime.now()).set_footer(text=f"Commands ran by {ctx.author.name}" , icon_url=ctx.author.avatar.url)
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed,delete_after=5)
         else:
             await ctx.reply("Maximium purge is 100" , ephemeral=True)
 
     @purge_prefix.error
     async def purge_error(self,ctx,error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.reply("Hey! what are you gonna purge")
+            await ctx.reply(f"{error}")
         if isinstance(error, commands.MissingPermissions):
             await ctx.reply("Lack of permission: `manage message`")
 

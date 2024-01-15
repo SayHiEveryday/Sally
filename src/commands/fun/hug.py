@@ -18,7 +18,7 @@ class hug(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = discord.Embed(title=f"**{interaction.user.name} hug {member.name}!**").set_image(rammore("hug"))
+        embed = discord.Embed(title=f"**{interaction.user.name} hug {member.name}!**").set_image(url=rammore("hug"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="hug")
@@ -30,7 +30,7 @@ class hug(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> hug robot but robot doesn't have feeling.")
             return
 
-        embed = discord.Embed(title=f"**{ctx.author.name} hug {member.name}!**").set_image(rammore("hug"))
+        embed = discord.Embed(title=f"**{ctx.author.name} hug {member.name}!**").set_image(url=rammore("hug"))
         await ctx.send(embed=embed)
 
     @hug_prefix.error

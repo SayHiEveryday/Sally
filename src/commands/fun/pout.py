@@ -14,7 +14,7 @@ class pout(commands.Cog):
                 title=f"{interaction.user.name} pouts themself",
                 colour=discord.Color.random(),
             ).set_image(
-                ram.rammore("pout")
+                url=ram.rammore("pout")
             ).set_footer(
                 text="command ran by {}".format(interaction.user.name),
                 icon_url=interaction.user.display_avatar.url
@@ -41,7 +41,7 @@ class pout(commands.Cog):
             text="command ran by {}".format(ctx.author.name),
             icon_url=ctx.author.display_avatar.url
         ).set_image(
-            ram.rammore("pout")
+            url=ram.rammore("pout")
         )
         await ctx.send(embed=embed)
 
@@ -52,7 +52,7 @@ class pout(commands.Cog):
                 title=f"{ctx.authot.name} pouts themself",
                 colour=discord.Color.random(),
             ).set_image(
-                ram.rammore("pout")
+                url=ram.rammore("pout")
             ).set_footer(
                 text="command ran by {}".format(ctx.author.name),
                 icon_url=ctx.author.display_avatar.url

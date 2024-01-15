@@ -1,4 +1,4 @@
-import discord , os , sys
+import os , sys
 from discord.ext import commands
 
 def restart_bot(): 
@@ -14,7 +14,7 @@ class res(commands.Cog):
             await ctx.send("Restarting bot")
             restart_bot()
         else:
-            await ctx.reply("No perm <:kek:1171280846536314991>")
+            await ctx.reply("Call to Reboot failed: Interactive authentication required")
 
 async def setup(bot):
     await bot.add_cog(res(bot))

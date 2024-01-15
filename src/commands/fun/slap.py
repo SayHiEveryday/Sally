@@ -18,7 +18,7 @@ class slap(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = discord.Embed(title=f"**{interaction.user.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(ram.rammore("slap"))
+        embed = discord.Embed(title=f"**{interaction.user.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(url=ram.rammore("slap"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="slap")
@@ -30,7 +30,7 @@ class slap(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> slap robot but robot doesn't have feeling.")
             return
 
-        embed = discord.Embed(title=f"**{ctx.author.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(ram.rammore("slap"))
+        embed = discord.Embed(title=f"**{ctx.author.name} slap {member.name}! , Hope {member.name} is okay D:**").set_image(url=ram.rammore("slap"))
         await ctx.send(embed=embed)
 
     @slap_prefix.error

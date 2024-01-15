@@ -18,7 +18,7 @@ class kiss(commands.Cog):
             return
 
         await interaction.response.defer()
-        embed = discord.Embed(title=f"**{interaction.user.name} kiss {member.name}!**").set_image(ram.rammore("kiss"))
+        embed = discord.Embed(title=f"**{interaction.user.name} kiss {member.name}!**").set_image(url=ram.rammore("kiss"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="kiss")
@@ -30,7 +30,7 @@ class kiss(commands.Cog):
             await ctx.send(f"<@{ctx.author.id}> kiss robot but robot doesn't have feeling.")
             return
 
-        embed = discord.Embed(title=f"**{ctx.author.name} kiss {member.name}!**").set_image(ram.rammore("kiss"))
+        embed = discord.Embed(title=f"**{ctx.author.name} kiss {member.name}!**").set_image(url=ram.rammore("kiss"))
         await ctx.send(embed=embed)
 
     @kiss_prefix.error

@@ -2,7 +2,7 @@ import discord
 import discord.ext
 from discord.ext import commands
 import random
-from utils.arg import answer
+from storage.arg import answer
 from discord import app_commands
 
 class eightball(commands.Cog):

@@ -6,7 +6,7 @@ class emojisteal(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(name="emojisteal")
+    @commands.command(name="emojisteal",aliases=["emo","emoji"])
     async def steal_prefix(self,ctx , emoji: discord.PartialEmoji):
         await ctx.reply(emoji.url)
 

@@ -18,7 +18,7 @@ class cuddle(commands.Cog):
             return
         
         await interaction.response.defer()
-        embed = discord.Embed(title=f"**{interaction.user.name} cuddle {member.name}!**").set_image(ram.rammore("cuddle"))
+        embed = discord.Embed(title=f"**{interaction.user.name} cuddle {member.name}!**").set_image(url=ram.rammore("cuddle"))
         await interaction.followup.send(embed=embed)
 
     @commands.command(name="cuddle")
@@ -30,7 +30,7 @@ class cuddle(commands.Cog):
             await ctx.send(f"Okay seem like <@{ctx.author.id}> in love with robot")
             return
 
-        embed = discord.Embed(title=f"**{ctx.author.name} cuddle {member.name}!**").set_image(ram.rammore("cuddle"))
+        embed = discord.Embed(title=f"**{ctx.author.name} cuddle {member.name}!**").set_image(url=ram.rammore("cuddle"))
         await ctx.send(embed=embed)
         
     @cuddle_prefix.error
