@@ -1,7 +1,7 @@
 import os , json , asyncio
 from utils.api.getsysinfo import getSystemInfo
 from utils.handler.loadcogs import initial_extension
-from storage.arg import bot , token , token2
+from storage.arg import bot , token
 async def load():
     for extenstion in initial_extension:
         await bot.load_extension(extenstion)

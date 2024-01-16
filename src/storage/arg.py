@@ -11,7 +11,6 @@ intent.emojis = True
 bot = commands.AutoShardedBot(help_command=None , intents=intent , command_prefix=sql_get_prefix)
 token = token
 owner = 698851209032761384;
-token2= token2
 answer = [
     "Indeed",
     "Absolutely",

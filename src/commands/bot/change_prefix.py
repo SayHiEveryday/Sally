@@ -29,13 +29,7 @@ class change_prefix(commands.Cog):
 
     @changeprefix_prefix.error
     async def error(self,ctx,error):
-        if isinstance(error , commands.MissingRequiredArgument):
-            
-            with open(os.path.dirname(__file__) + "/../../utils/prefix.json" , "r") as f:
-                prefix = json.load(f)
-
-            await ctx.reply(f"Hey what prefix are you going to change to , Your current prefix is **{prefix[str(ctx.guild.id)]}**")
-
-
+        pass
+    
 async def setup(bot):
     await bot.add_cog(change_prefix(bot))
