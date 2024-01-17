@@ -1,3 +1,4 @@
+import datetime
 from discord.ext import commands
 import discord , aiosqlite , random
 from discord import app_commands
@@ -33,6 +34,7 @@ class _economy(commands.Cog):
         
     
     @eco.command(description="Get money by working")
+    @app_commands.checks.cooldown(1,60,key=lambda i: (i.guild_id,i.user.id))
     async def work(self,interaction:discord.Interaction):
         await interaction.response.defer()
         randomize = random.randint(0,1000)
@@ -94,10 +96,11 @@ class _economy(commands.Cog):
             await c.execute(f"UPDATE eco SET money = {str(tt)} WHERE author = {member.id}")
             await db.commit()
 
-            embed = discord.Embed(description=f"{member.mention} have been given {int(tt)}$ from {interaction.user.mention}",colour=discord.Color.random())
+            embed = discord.Embed(description=f"{member.mention} have been given {int(amount)}$ from {interaction.user.mention}; Total: {int(tt)}",colour=discord.Color.random())
             await interaction.followup.send(embed=embed)
     
     @eco.command(description="Steal people money")
+    @app_commands.checks.cooldown(1,120,key=lambda i: (i.guild_id,i.user.id))
     async def steal(self,interaction:discord.Interaction,member:discord.Member):
         await interaction.response.defer()
         if member.bot.real:
@@ -160,6 +163,32 @@ class _economy(commands.Cog):
                 await db.commit()
                 await interaction.followup.send(embed=discord.Embed(description=f"{interaction.user.mention} got caught while attemping to steal {member.mention}'s money so he/she lose {randd}$ current amount is {o - randd}$"))
 
-
+        
+    @eco.command(description="Ranking top 5 highest money")
+    async def leaderboard(self,interaction:discord.Interaction):
+        await interaction.response.defer()
+        async with aiosqlite.connect("storage/eco.sqlite") as db:
+            c = await db.cursor()
+            i = "SELECT * FROM eco ORDER BY CAST(money AS INTEGER) DESC LIMIT 5"
+            a = await c.execute(i)
+            rows = await a.fetchall()
+            embed = discord.Embed(title="**Top 5 highest money**",description="```" + "".join([f"{i}. {r[0]} - {r[2]}$\n" for i,r in enumerate(rows,start=1)]) + "```",colour=discord.Colour.random(),timestamp=datetime.datetime.now())
+            await interaction.followup.send(embed=embed)
+    
+    
+    @steal.error
+    async def err(self,interaction:discord.Interaction,error:app_commands.AppCommandError):
+        if isinstance(error,app_commands.CommandOnCooldown):
+            await interaction.response.send_message(str(error),ephemeral=True)
+            return
+        else:
+            await interaction.response.send_message(str(error))
+    @work.error
+    async def w_err(self,interaction:discord.Interaction,error:app_commands.AppCommandError):
+        if isinstance(error,app_commands.CommandOnCooldown):
+            await interaction.response.send_message(str(error),ephemeral=True)
+            return
+        else:
+            await interaction.response.send_message(str(error))
 async def setup(bot):
     await bot.add_cog(_economy(bot))

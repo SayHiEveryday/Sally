@@ -26,9 +26,11 @@ class ready(commands.Cog):
             await db.execute("CREATE TABLE IF NOT EXISTS eco ( name varchar(255), author INT, money varchar(255) );")
             await db.commit()
         
+
         activity = discord.Game(name=f"/help | {len(bot.guilds)} Servers!")
         await bot.change_presence(status=discord.Status.online, activity=activity)
         await bot.tree.sync()
             
+
 async def setup(bot):
     await bot.add_cog(ready(bot))
