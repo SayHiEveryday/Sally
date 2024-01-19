@@ -6,7 +6,7 @@ class buttonrole(discord.ui.View):
 
     def __init__(self,*,timeout=30):
         super().__init__(timeout=timeout)
-
+    
     @discord.ui.button(label="View roles",style=discord.ButtonStyle.blurple)
     async def viewroles(self,interaction: discord.Interaction,button: discord.Button):
         embed = discord.Embed(description=f"\n".join([f"<@&{r.id}>" for r in interaction.guild.roles]))
