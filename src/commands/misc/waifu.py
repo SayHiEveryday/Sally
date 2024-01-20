@@ -1,6 +1,6 @@
 from discord.ext import commands
 from utils.api.waifu import wai
-import json , discord,requests,time
+import json , discord,requests,time,aiosqlite
 from utils.handler.logcmd import *
 from discord import app_commands
 
@@ -11,8 +11,15 @@ class waifu_cog(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def waifu(self,ctx: commands.Context):
-        if ctx.guild.id == 893725839236157450: return;
-            
+        async with aiosqlite.connect("storage/settings.sqlite") as db:
+            c = await db.cursor()
+            await c.execute(f"SELECT nsfw FROM perguild WHERE guild = {ctx.guild.id}")
+            re = await c.fetchone()
+        if re[0] == "0":
+            await ctx.reply(embed=discord.Embed(description="Nsfw module is disabled in this server",colour=0xED4245),mention_author=False)
+            return
+                
+
         start_time = time.time()
         try:
             if ctx.channel.nsfw:
@@ -35,7 +42,13 @@ class waifu_cog(commands.Cog):
     @commands.command(name="waifu2")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def testcmd(self,ctx:commands.Context,arg:str="waifu"):
-        if ctx.guild.id == 893725839236157450: return;
+        async with aiosqlite.connect("storage/settings.sqlite") as db:
+            c = await db.cursor()
+            await c.execute(f"SELECT nsfw FROM perguild WHERE guild = {ctx.guild.id}")
+            re = await c.fetchone()
+        if re[0] == "0":
+            await ctx.reply(embed=discord.Embed(description="Nsfw module is disabled in this server",colour=0xED4245),mention_author=False)
+            return
         
         if ctx.channel.nsfw:
             re = requests.get(f"https://api.waifu.pics/nsfw/{arg}")
@@ -72,6 +85,15 @@ class waifu_cog(commands.Cog):
         ])
     async def waifu_s(self,interaction: discord.Interaction,types: app_commands.Choice[str] , private:bool=True):
         if interaction.guild.id == 893725839236157450: return;     
+        
+        async with aiosqlite.connect("storage/settings.sqlite") as db:
+            c = await db.cursor()
+            await c.execute(f"SELECT nsfw FROM perguild WHERE guild = {interaction.guild.id}")
+            re = await c.fetchone()
+        if re[0] == "0":
+            await interaction.response.send_message(embed=discord.Embed(description="Nsfw module is disabled in this server",colour=0xED4245),ephemeral=True)
+            return
+        
         
         if not interaction.channel.nsfw:
             if private == False:

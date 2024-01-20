@@ -1,14 +1,14 @@
-from typing import Any, List, Optional
 import discord , os
 import discord.ext
 from discord.ext import commands
 from storage.arg import bot
 import datetime
-from utils.handler.loadcogs import initial_extension
 from discord import app_commands
 from utils.handler.logcmd import *
 import aiosqlite
+from utils.handler.getprefix import sql_get_prefix
 path = os.path.dirname(__file__) + "/../salonly/"
+import sqlite3
 
 botre = """
 `/help` - Show this embed
@@ -62,7 +62,9 @@ img = """
 """
 
 setting = """
-# Soon
+`/settings`
+    > `nsfw [allowed]` - Allow nsfw related commands?
+    > `prefix [new prefix]` - Server prefix
 """
 
 emo = """
@@ -80,6 +82,7 @@ emo = """
 class dropdown(discord.ui.Select):
     def __init__(self):
         options=[
+            discord.SelectOption(label="Home",description="Go to home page"),
             discord.SelectOption(label="Bot Related",description="Show command related to bot"),
             discord.SelectOption(label="Fun" , description="Show command related to fun"),
             discord.SelectOption(label="Misc", description="Misc commands"),
@@ -87,11 +90,17 @@ class dropdown(discord.ui.Select):
             discord.SelectOption(label="Economy",description="Commands related to economy"),
             discord.SelectOption(label="Emote",description="Emote commands"),
             discord.SelectOption(label="Image generation",description="Generate image (power by nekoapi)"),
-            discord.SelectOption(label="Settings",description="Settings (soon)")
+            discord.SelectOption(label="Settings",description="Settings")
         ]
         super().__init__(placeholder="Select page that you need help",options=options,min_values=1,max_values=1)
-    async def callback(self, interaction: discord.Interaction) -> Any:
+    async def callback(self, interaction: discord.Interaction):
+        async with aiosqlite.connect("storage/prefix.sqlite") as db:
+            query = "SELECT * FROM prefix WHERE guild = ?"
+            async with db.execute(query, (str(interaction.guild.id),)) as cursor:
+                result = await cursor.fetchone()
         match self.values[0]:
+            case "Home":
+                embed = discord.Embed(title=f"**Hey {interaction.user.name}!**", description=f"**You can find some useful link here**\n \n<:github:1171141412914466957> **Github**:\n[github.com](https://github.com/SayHiEveryday/Sally)\n<:gamejoy:1171141581252861962> **Ours discord server**: \n[discord.gg](https://discord.gg/hCvhq4md) \n<:question_mark:1171372577009176677> **My prefix for this server is: {result[1]}**",colour=0x5865F2,timestamp=datetime.datetime.now()).set_author(name=f"Command ran by {interaction.user.name}",icon_url=interaction.user.avatar.url)
             case "Bot Related":
                 embed = discord.Embed(title=f"**Bot Related**",description=botre,colour=discord.Colour.blurple())
             case "Fun":
@@ -111,11 +120,18 @@ class dropdown(discord.ui.Select):
 
         await interaction.response.edit_message(embed=embed,view=prefixbutton())
 
+class buttons(discord.ui.Button):
+    def __init__(self):
+        super().__init__(style=discord.ButtonStyle.blurple, label=f"Total commands is {len(bot.tree.get_commands())}", disabled=True, custom_id="totalcmd",emoji=discord.PartialEmoji.from_str("<:question_mark:1171372577009176677>"))
+    async def callback(self, interaction: discord.Interaction):
+        pass
+
 class prefixbutton(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.add_item(dropdown())
-    
+        self.add_item(buttons())
+
 
 class helpcmd(commands.Cog):
     def __init__(self, client):
@@ -130,7 +146,7 @@ class helpcmd(commands.Cog):
             query = "SELECT * FROM prefix WHERE guild = ?"
             async with db.execute(query, (str(interaction.guild.id),)) as cursor:
                 result = await cursor.fetchone()
-        helpembed = discord.Embed(title=f"**Hey {interaction.user.name}!**", description=f"**Total command is {len(bot.tree.get_commands())}**\n**You can find some useful link here**\n \n<:github:1171141412914466957> **Github**:\n[github.com](https://github.com/SayHiEveryday/Sally) \n<:idk:1171141480539246653> **List of all commands:**\n[app.gitbook.com](https://sayhis-organization.gitbook.io/sally-book/)\n<:gamejoy:1171141581252861962> **Ours discord server**: \n[discord.gg](https://discord.gg/hCvhq4md) \n<:question_mark:1171372577009176677> **My prefix for this server is: {result[1]}**",colour=0x5865F2,timestamp=datetime.datetime.now())
+        helpembed = discord.Embed(title=f"**Hey {interaction.user.name}!**", description=f"**You can find some useful link here**\n \n<:github:1171141412914466957> **Github**:\n[github.com](https://github.com/SayHiEveryday/Sally)\n<:gamejoy:1171141581252861962> **Ours discord server**: \n[discord.gg](https://discord.gg/hCvhq4md) \n<:question_mark:1171372577009176677> **My prefix for this server is: {result[1]}**",colour=0x5865F2,timestamp=datetime.datetime.now())
         await interaction.response.send_message(embed=helpembed.set_author(name=f"Command ran by {interaction.user.name}",icon_url=interaction.user.avatar.url) , view=prefixbutton())
 
     @commands.command(name="help")
@@ -140,7 +156,7 @@ class helpcmd(commands.Cog):
             async with db.execute(query, (str(ctx.guild.id),)) as cursor:
                 result = await cursor.fetchone()
 
-        helpembed = discord.Embed(title=f"**Hey {ctx.author.name}!**", description=f"**Total command is {len(bot.tree.get_commands())}**\n**You can find some useful link here**\n \n<:github:1171141412914466957> **Github**:\n[github.com](https://github.com/SayHiEveryday/Sally) \n<:idk:1171141480539246653> **List of all commands:**\n[app.gitbook.com](https://sayhis-organization.gitbook.io/sally-book/)\n<:gamejoy:1171141581252861962> **Ours discord server**: \n[discord.gg](https://discord.gg/hCvhq4md) \n<:question_mark:1171372577009176677> **My prefix for this server is: {result[1]}**",colour=0x5865F2,timestamp=datetime.datetime.now())
+        helpembed = discord.Embed(title=f"**Hey {ctx.author.name}!**", description=f"**You can find some useful link here**\n \n<:github:1171141412914466957> **Github**:\n[github.com](https://github.com/SayHiEveryday/Sally) \n<:gamejoy:1171141581252861962> **Ours discord server**: \n[discord.gg](https://discord.gg/hCvhq4md) \n<:question_mark:1171372577009176677> **My prefix for this server is: {result[1]}**",colour=0x5865F2,timestamp=datetime.datetime.now())
         await ctx.send(embed=helpembed.set_author(name=f"Command ran by {ctx.author.name}",icon_url=ctx.author.avatar.url) , view=prefixbutton())
 
 async def setup(bot):
