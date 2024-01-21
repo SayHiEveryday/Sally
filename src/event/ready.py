@@ -1,4 +1,4 @@
-import discord , json, os
+import discord , hashlib, os
 from discord.ext import commands
 from storage.arg import bot
 import aiosqlite
@@ -38,10 +38,25 @@ class ready(commands.Cog):
                     await db.commit()
                 except Exception as e:
                     pass
+        async with aiosqlite.connect("storage/warn.sqlite") as db:
+            cursor = await db.cursor()
+            for g in bot.guilds:
+                try:
+                    await db.execute(f"CREATE TABLE IF NOT EXISTS {'t_'+str(g.id)} ( id varchar(255), mod varchar(255), tar varchar(255), reason varchar(255), UNIQUE(id) )")
+                    await db.commit()
+                except Exception as e:
+                    print(e)
+        async with aiosqlite.connect("storage/log.sqlite") as db:
+            cursor = await db.cursor()
+            for g in bot.guilds:
+                try:
+                    await db.execute(f"CREATE TABLE IF NOT EXISTS {'t_'+str(g.id)} ( id varchar(255), ty varchar(255) ,mod varchar(255), tar varchar(255), reason varchar(255), UNIQUE(id) )")
+                    await db.commit()
+                except Exception as e:
+                    print(e)
             
         activity = discord.Game(name=f"/help | {len(bot.guilds)} Servers!")
         await bot.change_presence(status=discord.Status.online, activity=activity)
-        await bot.tree.sync()
             
 
 async def setup(bot):

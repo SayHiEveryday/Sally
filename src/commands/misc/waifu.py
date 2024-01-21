@@ -83,8 +83,7 @@ class waifu_cog(commands.Cog):
         app_commands.Choice(name="boobs",value="boobs"),
         app_commands.Choice(name="hboobs",value="hboobs")
         ])
-    async def waifu_s(self,interaction: discord.Interaction,types: app_commands.Choice[str] , private:bool=True):
-        if interaction.guild.id == 893725839236157450: return;     
+    async def waifu_s(self,interaction: discord.Interaction,types: app_commands.Choice[str] , private:bool=True):  
         
         async with aiosqlite.connect("storage/settings.sqlite") as db:
             c = await db.cursor()

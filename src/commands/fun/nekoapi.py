@@ -1,4 +1,4 @@
-import discord , requests , time
+import discord , requests , time , aiohttp
 from discord.ext import commands
 from discord import app_commands
 
@@ -51,6 +51,21 @@ class nekoapi(commands.Cog):
         embed.set_image(url=re.json()['message'])
         embed.set_footer(text=f"Execution took {round(time.time() - start)} seconds")
         await interaction.followup.send(embed=embed)
+    
+    @image.command(name="threats",description="threats")
+    async def image_treats(self,interaction:discord.Interaction,member:discord.Member):
+        start = time.time()
+        await interaction.response.defer()
+        async with aiohttp.ClientSession() as client:
+            async with client.get(f"https://nekobot.xyz/api/imagegen?type=threats&url={member.display_avatar.url}") as res:
+                await client.close()
+                json = await res.json()
+                embed = discord.Embed(colour=discord.Color.random())
+                embed.set_image(url=json['message'])
+                embed.set_footer(text=f"Execution took {round(time.time() - start)} seconds")
+                
+        await interaction.followup.send(embed=embed)
+        
 
 async def setup(bot):
     await bot.add_cog(nekoapi(bot))
