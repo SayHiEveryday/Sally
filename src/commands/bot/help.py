@@ -8,7 +8,6 @@ from utils.handler.logcmd import *
 import aiosqlite
 from utils.handler.getprefix import sql_get_prefix
 path = os.path.dirname(__file__) + "/../salonly/"
-import sqlite3
 
 botre = """
 `/help` - Show this embed
@@ -30,8 +29,20 @@ Misc = """
     > `thatday [month][day]` - Show event in the month and day you provide
 `/qrcode` - Make a qrcode with text you provided
 `/nsfw` - Nsfw commands
+`/kitsu`
+    > `search [type][name]` - Search anime/manga from kitsu.io
+    > `random` - Return random anime
+**--Prefix Only--**
+`$emojisteal` - Return url of provided emoji
+`$waifu` - Return image of waifu (nsfw module required)
+`$waifu2` - Return image of waifu (nsfw module required)
 """
 Mod = """
+`/moderation`
+    > `kick [member][reason]` - Kick a member
+    > `ban [member][reason]` - Ban a member
+    > `mute [member][time][reason]` - timeout a member
+    > `unmute [member][reason]` - remove timeout
 `/whois [member]` - Show basic user infomation
 `/role`
     > `add [member][role]` - add role to mentioned member
@@ -40,8 +51,6 @@ Mod = """
     > `set` - Set a nickname to mentioned member
     > `clear` - Clear nickname to mentoned member
 `/purge [amount]` - Clear message in the channel (max = 100)
-`/kick [member][reason]` - Kick a member
-`/ban [member][reason]` - Ban a member
 `/avatar [member]` - Get avatar from mentioned member
 """
 eco = """
@@ -106,7 +115,7 @@ class dropdown(discord.ui.Select):
             case "Fun":
                 embed = discord.Embed(title=f"**Fun**",description=Fun,colour=discord.Colour.blurple())
             case "Misc":
-                embed = discord.Embed(title=f"**Misc**",description=Misc,colour=discord.Colour.blurple())
+                embed = discord.Embed(title=f"**Misc**",description=Misc.replace("$",result[1]),colour=discord.Colour.blurple())
             case "Moderation":
                 embed = discord.Embed(title=f"**Moderation**",description=Mod,colour=discord.Colour.blurple())
             case "Economy":
