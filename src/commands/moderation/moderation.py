@@ -247,9 +247,11 @@ class _moderation(commands.Cog):
             c = await db.cursor()
             r = await c.execute(f"SELECT * FROM {'t_'+str(interaction.guild.id)} WHERE id = '{id}'")
             rows = r.fetchall()
-            if len(rows) == 0:
-                await interaction.response.send_message("Error: {id} not found",ephemeral=True)
-                return
+            try:
+                    len(rows)
+            except:
+                    await interaction.response.send_message("Error: {id} not found",ephemeral=True)
+                    return
             await c.execute(f"DELETE FROM {'t_'+str(interaction.guild.id)} WHERE id = '{id}'")
             await db.commit()
             await interaction.response.send_message(f"deleted warnings id: {id} from database",ephemeral=True)
@@ -268,9 +270,11 @@ class _moderation(commands.Cog):
             c = await db.cursor()
             r = await c.execute(f"SELECT * FROM {'t_'+str(ctx.guild.id)} WHERE id = '{id}'")
             rows = r.fetchall()
-            if len(rows) == 0:
-                await ctx.reply("Error: {id} not found")
-                return
+            try:
+                    len(rows)
+            except:
+                    await ctx.reply("Error: {id} not found",ephemeral=True)
+                    return
             await c.execute(f"DELETE FROM {'t_'+str(ctx.guild.id)} WHERE id = '{id}'")
             await db.commit()
             await ctx.reply(f"deleted warnings id: {id} from database")
