@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group = 'cloud.salpy.sally'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.dv8tion:JDA:5.0.0-beta.24'
+    implementation 'club.minnced:discord-webhooks:0.8.4'
+    implementation 'ch.qos.logback:logback-classic:1.5.6'
+}
+
+test {
+    useJUnitPlatform()
+}
