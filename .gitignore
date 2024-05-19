@@ -42,7 +42,6 @@ bin/
 .DS_Store
 
 ### private class ###
-pri/
 
 ### gradlew thing ###
 gradlew
