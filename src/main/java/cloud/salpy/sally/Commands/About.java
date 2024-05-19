@@ -12,7 +12,7 @@ public class About extends command {
         super(bot);
         this.app = new ApplicationCommand.Builder()
                 .setType(ApplicationCommand.Type.CHAT_INPUT)
-                .setName("s!about")
+                .setName("about")
                 .setDescription("Show About bot")
                 .setDmPermission(true)
                 .build();
