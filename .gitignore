@@ -47,6 +47,7 @@ bin/
 gradlew
 gradlew.bat
 
+### python thing ###
 .temp.*
 .temp
 .temp.py
