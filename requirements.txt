@@ -1,0 +1,2 @@
+Quart==0.19.6
+Flask-Discord-Interactions==2.1.2

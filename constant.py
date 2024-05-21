@@ -1,0 +1,3 @@
+clientid = "1180715827209711646"
+publickey = "8774ba157f906a28090ab055bf36fe3190ecd198ff9584efd808d94b562e8ea1"
+secret = "5aS5WTlc6vXbzOsFe8iO9L8kOoLcHrAF"
