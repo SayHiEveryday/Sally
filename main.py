@@ -24,5 +24,5 @@ if "register" in sys.argv:
     discord.update_commands()
     sys.exit()
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=int(os.environ.get("port",443)), sslcontext=("fullchain.pem","privkey.pem"),debug=True)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0",port=int(os.environ.get("port",443)), sslcontext=("fullchain.pem","privkey.pem"),debug=True)
