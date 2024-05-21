@@ -1,7 +1,8 @@
 from flask import Flask
 
 from flask_discord_interactions import DiscordInteractions
-import constant , os, sys
+import gunicorn.workers
+import constant , gunicorn
 
 from commands.bot import botcommandbp
 
@@ -20,9 +21,10 @@ discord.register_blueprint(botcommandbp)
 
 discord.set_route("/interactions",app=app)
 
-if "register" in sys.argv:
-    discord.update_commands()
-    sys.exit()
+
+
+# discord.update_commands()
+
 
 # if __name__ == "__main__":
 #     app.run(host="0.0.0.0",port=int(os.environ.get("port",443)), sslcontext=("fullchain.pem","privkey.pem"),debug=True)

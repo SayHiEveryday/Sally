@@ -46,3 +46,8 @@ bin/
 ### gradlew thing ###
 gradlew
 gradlew.bat
+
+.temp.*
+.temp
+.temp.py
+__pycache__
