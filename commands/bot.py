@@ -1,15 +1,11 @@
 from flask_discord_interactions import DiscordInteractionsBlueprint, Message, Context, Embed
-import requests, constant
+import requests, constant, datetime
 
 botcommandbp = DiscordInteractionsBlueprint()
 
 bot = botcommandbp.command_group("bot")
 
-@bot.command(name="ping")
-def ping(ctx):
-    return Message(content="Pong!")
-
-@bot.command(name="info")
+@bot.command(name="info", description="Bot basic infomation")
 def info(ctx:Context):
     re = requests.get(
         "https://discord.com/api/v10/users/@me/guilds",

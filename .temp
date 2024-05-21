@@ -1,5 +1,0 @@
-import requests
-
-re = requests.post("https://sallyrewrite.onrender.com/interactions")
-print(re.text)
-print(re.headers)
