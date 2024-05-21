@@ -1,6 +1,6 @@
 from quart import Quart
 from flask_discord_interactions import DiscordInteractions
-import constant
+import constant , os
 
 
 from commands.bot import botcommandbp
@@ -18,4 +18,4 @@ discord.set_route_async("/interactions")
 discord.update_commands()
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=int(os.environ['PORT']))
