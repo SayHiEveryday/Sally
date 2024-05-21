@@ -1,13 +1,10 @@
-from flask_discord_interactions import DiscordInteractionsBlueprint, AsyncContext, Message
-import datetime
+from flask_discord_interactions import DiscordInteractionsBlueprint, Message
+import asyncio
 
 botcommandbp = DiscordInteractionsBlueprint()
 
-bot = botcommandbp.command_group("bot", is_async=True)
+bot = botcommandbp.command_group("bot")
 
 @bot.command(name="ping")
-async def ping(ctx: AsyncContext):
-    ping: int = int(datetime.datetime.now().timestamp() - ctx.message.timestamp.timestamp())
-    async def do_followup():
-        await ctx.edit(content="Pong! my latency is {0}".format(str(ping)))
-    return Message(deferred=True)
+def ping(ctx):
+    return Message(content="Pong!")
