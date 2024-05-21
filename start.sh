@@ -1,1 +1,1 @@
-gunicorn main:app --certfile fullchain.pem --keyfile privkey.pem -w 15 -b 0.0.0.0:443 
+gunicorn main:app --certfile fullchain.pem --keyfile privkey.pem -w 3 -b 0.0.0.0:443 

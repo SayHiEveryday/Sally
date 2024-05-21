@@ -50,5 +50,4 @@ gradlew.bat
 ### python thing ###
 .temp.*
 .temp
-.temp.py
 __pycache__
