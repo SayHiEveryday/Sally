@@ -14,7 +14,6 @@ app.config["DISCORD_CLIENT_SECRET"] = constant.secret
 app.config["DISCORD_PUBLIC_KEY"] = constant.publickey
 
 discord.set_route_async("/interactions")
-discord.verify_signature()
 discord.update_commands()
 
 if __name__ == "__main__":
