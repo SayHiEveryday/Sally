@@ -7,8 +7,6 @@ from commands.bot import botcommandbp
 
 app = Quart(__name__)
 discord = DiscordInteractions(app)
-discord.update_commands()
-
 discord.register_blueprint(botcommandbp)
 
 app.config["DISCORD_CLIENT_ID"] = constant.clientid
@@ -17,6 +15,7 @@ app.config["DISCORD_PUBLIC_KEY"] = constant.publickey
 
 discord.set_route_async("/interactions")
 discord.verify_signature()
+discord.update_commands()
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=int(os.environ['PORT']))
