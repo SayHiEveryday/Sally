@@ -1,6 +1,6 @@
-import { MessageBuilder } from "../structure/builder/message";
-import { Cmd, OptionBuilder, OptionType } from "../structure/format/command";
-import { interactionUtils } from "../structure/other/interactionU";
+import { MessageBuilder } from "../core/builder/message";
+import { Cmd, OptionBuilder, OptionType } from "../core/format/command";
+import { interactionUtils } from "../core/other/interactionU";
 
 export default new Cmd({
     name: "userinfo",

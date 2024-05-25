@@ -1,8 +1,10 @@
-import { EmbedBuilder } from "../structure/builder/embed";
-import { MessageBuilder } from "../structure/builder/message";
-import { Cmd } from "../structure/format/command";
-import { InteractionContextTypes } from "../structure/format/object/interactions";
+import axios from "axios";
+import { EmbedBuilder } from "../core/builder/embed";
+import { MessageBuilder } from "../core/builder/message";
+import { Cmd } from "../core/format/command";
+import { InteractionContextTypes } from "../core/format/object/interactions";
 import { guild_cache } from "../utils/cache/guilds";
+import { token } from "../constant.json"
 
 export default new Cmd({
     name: "serverinfo",
@@ -15,6 +17,22 @@ export default new Cmd({
                 .setDescription("Cannot use this command in dm")
             return new MessageBuilder().addEmbed(embed).setEphermal(true)
         }
-        return new MessageBuilder().setContent("this is a test").setEphermal(true)
+        if (interaction.guild === undefined) {
+            return new MessageBuilder().setContent("Error while fetching guild").setEphermal(true)
+        }
+        const guild = guild_cache.get(interaction.guild.id);
+        let g;
+        if (guild === undefined) {
+            axios.get("https://discord.com/api/v10/guilds/1213461528611790848",{
+                headers: {
+                    Authorization: `Bot ${token}`
+                }
+            }).then(res => {
+                JSON.parse(res.data)
+            })
+        }
+        return new MessageBuilder()
+            .setContent(g ?? "undefined")
+            .setEphermal(true)
     }
 })

@@ -1,7 +1,7 @@
-import { EmbedBuilder } from "../structure/builder/embed";
-import { MessageBuilder } from "../structure/builder/message";
-import { Cmd } from "../structure/format/command";
-import { Snowflake } from "../structure/other/snowflake";
+import { EmbedBuilder } from "../core/builder/embed";
+import { MessageBuilder } from "../core/builder/message";
+import { Cmd } from "../core/format/command";
+import { Snowflake } from "../core/other/snowflake";
 
 
 export default new Cmd({
