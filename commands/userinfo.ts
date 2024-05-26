@@ -13,8 +13,13 @@ export default new Cmd({
             type: OptionType.USER
         }),
     ],
-    exec: ({ interaction }) => {
-        const member = interactionUtils.getUser(interaction,"member");
+    exec: async ({ interaction }) => {
+        if (interaction.data?.resolved === undefined) {
+            member = interaction.member!.user
+        } else {
+            member = interaction.data?.resolved?.users[interaction.data?.options!.find(op => op.name === "member")!.value]
+        }
+
         const message = new MessageBuilder().setContent(`https://cdn.discordapp.com/avatars/${member?.id}/${member?.avatar}.png?size=1024`);
         return message
     }

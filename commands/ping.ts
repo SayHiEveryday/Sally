@@ -7,7 +7,7 @@ import { Snowflake } from "../core/other/snowflake";
 export default new Cmd({
     name: "ping",
     description: "pong",
-    exec: ({ interaction }) => {
+    exec: async ({ interaction }) => {
         return new MessageBuilder()
                     .addEmbed(new EmbedBuilder().setDescription(`Pong! My latency is ${Date.now() - Number(new Snowflake(interaction.id).timestamp)}ms`).setColor(0xFFFFFF));
     }
