@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 temp.*
 __pycache__
 bypass.py
 config.py
+=======
+node_modules
+package-lock.json
+.temp.*
+>>>>>>> master
